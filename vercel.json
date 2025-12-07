@@ -1,11 +1,12 @@
 {
   "rewrites": [
     { "source": "/dashboard", "destination": "/dashboard.html" },
-    { "source": "/", "destination": "/update.html" },
+    { "source": "/updates", "destination": "/update.html" },
     { "source": "/support", "destination": "/support.html" }
   ],
   "redirects": [
     { "source": "/", "destination": "/index.html", "permanent": true }
   ]
 }
+
 
