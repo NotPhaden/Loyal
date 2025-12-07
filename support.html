@@ -1,0 +1,329 @@
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loyal RolePlay – Support</title>
+<link rel="icon" type="image/png" href="logo.png">
+
+<style>
+body { margin:0; font-family:Arial,sans-serif; background: radial-gradient(circle at center,#1c2238,#0e1324 70%); color:#fff; overflow-x:hidden; }
+.hidden { display:none !important; }
+
+#loadingScreen {
+  position: fixed; top:0; left:0; width:100%; height:100%;
+  background: linear-gradient(135deg, #1c2238, #0e1324);
+  display:flex; justify-content:center; align-items:center;
+  z-index:99999; color:white; font-size:24px; font-weight:bold; letter-spacing:2px;
+}
+.loader-text { animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+
+.sidebar {
+  position: fixed; left:0; top:0; height:100%; width:180px; background:#1f2a41; padding-top:35px; text-align:center; z-index:50;
+}
+.sidebar-logo { width:50px; display:block; margin:0 auto; }
+.sidebar-title { font-size:20px; margin-top:10px; margin-bottom:20px; color:white; }
+.nav-item { padding:12px 20px; color:#c4c9d6; text-decoration:none; display:block; text-align:left; transition:.2s; }
+.nav-item:hover { background: rgba(255,255,255,0.05); color:white; }
+
+.content { margin-left:180px; padding:40px; }
+h1 { font-size:38px; margin-bottom:25px; letter-spacing:3px; }
+
+.cards { display:grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap:25px; margin-top:25px; }
+.card { background: rgba(255,255,255,0.05); padding:25px; border-radius:12px; box-shadow:0 0 15px rgba(0,0,0,0.35); backdrop-filter: blur(6px); transition: 0.2s; cursor: pointer; text-align:center; }
+.card:hover { background: rgba(255,255,255,0.08); transform: translateY(-4px); }
+.card h2 { margin-top:0; }
+.card p { color:#c4c9d6; }
+
+input, textarea { width:100%; padding:12px; margin:8px 0 15px 0; border:none; border-radius:6px; background: rgba(255,255,255,0.1); color:#fff; outline:none; font-size:14px; }
+textarea { resize:vertical; height:120px; }
+
+.btn { background: #1a74ff; padding:12px 20px; border-radius:6px; display:inline-block; cursor:pointer; text-align:center; color:#fff; font-weight:bold; transition:.15s; border:none; width:100%; font-size:16px; }
+.btn:hover { background:#0f5cd4; }
+
+.success-box { display:none; padding:15px; margin-top:15px; border-radius:10px; background: rgba(0,255,90,0.1); border-left:4px solid #00ff7b; color:#d1ffe2; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:translateY(0);} }
+
+.profile { position: fixed; top:18px; right:20px; display:flex; align-items:center; cursor:pointer; z-index:9999; }
+.profile img { width:60px; height:60px; border-radius:50%; object-fit:cover; margin-right:12px; border:2px solid #1a74ff; }
+.profile span { font-weight:bold; color:white; font-size:18px; }
+
+.profile-card { position:fixed; top:90px; right:20px; background: rgba(255,255,255,0.08); padding:20px; border-radius:12px; width:300px; box-shadow:0 0 20px rgba(0,0,0,0.4); backdrop-filter:blur(6px); z-index:1000; }
+.profile-card img { width:80px; height:80px; border-radius:50%; margin-bottom:10px; border:2px solid #1a74ff; }
+.profile-card input { width:100%; padding:10px; margin-bottom:10px; border-radius:6px; border:none; background: rgba(255,255,255,0.1); color:white; }
+.profile-card input[disabled] { background: rgba(255,255,255,0.05); color:#b3b8c7; }
+.profile-card button { width:100%; padding:12px; border:none; border-radius:6px; background:#1a74ff; font-weight:bold; cursor:pointer; color:white; margin-bottom:5px; }
+.profile-card button:hover { background:#0f5cd4; }
+
+.auth-popup { display:flex; justify-content:flex-start; align-items:flex-start; position:fixed; top:0; left:0; width:100%; height:100%; backdrop-filter:blur(4px); z-index:2000; }
+.auth-box { background: rgba(30,34,55,0.85); padding:40px 30px; border-radius:16px; width:350px; margin:40px; text-align:center; color:#fff; animation:fadeIn 0.3s ease; }
+.auth-box h2 { margin:10px 0; font-size:26px; color:#1a74ff; }
+.auth-box p { margin-bottom:20px; color:#c4c9d6; font-size:16px; }
+.auth-box input { width:100%; padding:12px; margin-bottom:12px; border-radius:8px; border:none; background: rgba(255,255,255,0.12); color:white; font-size:15px; }
+.auth-box button { width:100%; padding:12px; border:none; border-radius:8px; background:#1a74ff; font-weight:bold; cursor:pointer; color:white; font-size:15px; }
+.auth-box button:hover { background:#0f5cd4; }
+.auth-box #switchMode { margin-top:15px; cursor:pointer; color:#1a74ff; text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<div id="loadingScreen"><div class="loader-text">Loading Loyal RolePlay...</div></div>
+
+<div class="sidebar hidden" id="sidebar">
+  <img src="logo.png" class="sidebar-logo">
+  <div class="sidebar-title">Loyal RolePlay</div>
+  <a class="nav-item" href="dashboard.html">Dashboard</a>
+  <a class="nav-item" href="update.html">Updates</a>
+  <a class="nav-item" href="support.html">Support</a>
+</div>
+
+<div class="content hidden" id="mainContent">
+  <h1>Support Center</h1>
+  <button class="btn" id="createTicketBtn">Create Ticket</button>
+
+  <div id="ticketFormContainer" style="display:none; margin-top:20px;">
+    <div class="card" style="cursor:default; margin-bottom:15px;">
+      <h2>Select Ticket Category</h2>
+      <div class="cards" id="categoryCards">
+        <div class="card" data-type="Technical Issue">Technical Issue</div>
+        <div class="card" data-type="Ban Appeal">Ban Appeal</div>
+        <div class="card" data-type="Bug Report">Bug Report</div>
+        <div class="card" data-type="Donation Help">Donation Help</div>
+      </div>
+    </div>
+
+    <div class="card" id="ticketForm" style="display:none;">
+      <h2 id="ticketTitle">📩 Submit a Support Ticket</h2>
+      <label>Your Email</label>
+      <input id="emailInput" type="email" placeholder="example@mail.com">
+      <label>Discord</label>
+      <input id="discordInput" type="text" placeholder="player#1234">
+      <label>Describe your issue</label>
+      <textarea id="messageInput" placeholder="Describe your problem..."></textarea>
+      <label>Proof (link, screenshot, etc.)</label>
+      <input id="proofInput" type="text" placeholder="Optional proof link">
+      <label>Your User ID</label>
+      <input id="userIdInput" type="text" placeholder="Game User ID">
+      <button class="btn" id="submitTicketBtn">Send Ticket</button>
+      <div class="success-box" id="successMsg">Ticket sent successfully! Staff will contact you soon.</div>
+    </div>
+  </div>
+</div>
+
+<div class="profile hidden" id="profileBtn">
+  <img id="profileAvatar" src="">
+  <span id="profileName"></span>
+</div>
+
+<div class="profile-card hidden" id="profileCard">
+  <img id="cardAvatar" src="">
+  <input type="text" id="cardDiscord" placeholder="Discord Name">
+  <input type="text" id="cardEmail" placeholder="Email" disabled>
+  <input type="text" id="cardUID" placeholder="User ID" disabled>
+  <input type="text" id="cardAvatarURL" placeholder="Avatar URL">
+  <button id="saveBtn">Save</button>
+  <button id="logoutBtn">Logout</button>
+</div>
+
+<div class="auth-popup hidden" id="authPopup">
+  <div class="auth-box">
+    <h2 id="authTitle">Register</h2>
+    <p>Loyal RolePlay</p>
+    <input type="text" id="discordName" placeholder="Discord name (ex: Player#1234)">
+    <input type="text" id="userID" placeholder="User ID">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <input type="password" id="confirmPassword" placeholder="Confirm password">
+    <button id="authBtn">Register</button>
+    <p id="switchMode">Already have an account? Login</p>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getDatabase, ref, set, get, update } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDuwtx8gFcD4nVPPR1Ej0qGZSDqskVrj48",
+  authDomain: "PHXp-7ad68.firebaseapp.com",
+  databaseURL: "https://PHXp-7ad68-default-rtdb.firebaseio.com",
+  projectId: "PHXp-7ad68",
+  storageBucket: "PHXp-7ad68.appspot.com",
+  messagingSenderId: "958464426444",
+  appId: "1:958464426444:web:4ddef0be7bf73a7f471d69"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getDatabase();
+
+const loadingScreen = document.getElementById('loadingScreen');
+const createBtn = document.getElementById("createTicketBtn");
+const formContainer = document.getElementById("ticketFormContainer");
+const ticketForm = document.getElementById("ticketForm");
+const ticketTitle = document.getElementById("ticketTitle");
+let selectedType = "";
+
+const hideAll = () => {
+  document.getElementById("authPopup").classList.add("hidden");
+  document.getElementById("sidebar").classList.add("hidden");
+  document.getElementById("mainContent").classList.add("hidden");
+  document.getElementById("profileBtn").classList.add("hidden");
+  document.getElementById("profileCard").classList.add("hidden");
+};
+const showAuth = () => document.getElementById("authPopup").classList.remove("hidden");
+const showContent = () => {
+  document.getElementById("sidebar").classList.remove("hidden");
+  document.getElementById("mainContent").classList.remove("hidden");
+  document.getElementById("profileBtn").classList.remove("hidden");
+};
+
+async function loadProfile(uid){
+  const snapshot = await get(ref(db,'users/'+uid));
+  if(snapshot.exists()){
+    const data = snapshot.val();
+    document.getElementById("profileName").textContent = data.discord || "No Name";
+    document.getElementById("profileAvatar").src = data.avatar || "https://cdn.discordapp.com/attachments/1153942954650648657/1442168936501215283/NTc5MjQxMS5qcGc.png";
+    document.getElementById("cardAvatar").src = data.avatar || "";
+    document.getElementById("cardDiscord").value = data.discord || "";
+    document.getElementById("cardEmail").value = data.email || "";
+    document.getElementById("cardUID").value = data.uid || "";
+    document.getElementById("cardAvatarURL").value = data.avatar || "";
+    document.getElementById("emailInput").value = data.email || "";
+    document.getElementById("discordInput").value = data.discord || "";
+    document.getElementById("userIdInput").value = data.uid || "";
+  }
+}
+
+onAuthStateChanged(auth, user => {
+  loadingScreen.style.display='none';
+  if(user){ hideAll(); showContent(); loadProfile(user.uid); } 
+  else { hideAll(); showAuth(); }
+});
+
+createBtn.addEventListener("click", () => {
+  createBtn.style.display = "none";
+  formContainer.style.display = "block";
+});
+
+document.querySelectorAll("#categoryCards .card").forEach(card => {
+  card.addEventListener("click", () => {
+    selectedType = card.dataset.type;
+    ticketTitle.textContent = `📩 Submit a ${selectedType} Ticket`;
+    ticketForm.style.display = "block";
+    ticketForm.scrollIntoView({ behavior: "smooth" });
+  });
+});
+
+document.getElementById("submitTicketBtn").onclick = () => {
+  const email = document.getElementById("emailInput").value.trim();
+  const discord = document.getElementById("discordInput").value.trim();
+  const message = document.getElementById("messageInput").value.trim();
+  const proof = document.getElementById("proofInput").value.trim();
+  const userId = document.getElementById("userIdInput").value.trim();
+  const successBox = document.getElementById("successMsg");
+
+  if(!email || !discord || !message || !userId || !selectedType) {
+    alert("Please fill in all required fields and select a category!");
+    return;
+  }
+
+  const WEBHOOKS = {
+  "Technical Issue": "https://discord.com/api/webhooks/1447110776618750106/GNEiMM66QssXtlTmM-EfTTEWkNekE_7oZrgovMKPehIR_onu-WcAwnaFp0dWZFPR1mFV",
+  "Ban Appeal": "https://discord.com/api/webhooks/1447111015279104075/c1nfviqC94A7JULD-RxW1Eq7rj9Bv9EC9ZNgyd9TEv9d9SVoAv5q7308W5WSl0bGw2PM",
+  "Bug Report": "https://discord.com/api/webhooks/1447111135563218955/SVn8cOJRQBbQSmgtvB1RMZuRvjxp7VyGokdhXwoSFkfSvw86xWZFvvyQ43bAZp7UWj4f",
+  "Donation Help": "https://discord.com/api/webhooks/1447111359061037066/DuJ0E6ca8a49uIF7lwQZHHSAwT3ys6pSlo1FuwyRp2TL8qEi8YLSJVWKsZrpdF7J9KJ_"
+  };
+  const webhookURL = WEBHOOKS[selectedType];
+  if(!webhookURL) return alert("Invalid issue type!");
+
+  const payload = {
+    content: `**Ticket Trimis Recent – ${selectedType}**\nVa rugam sa marcati cu ✅ pentru a sti daca ati preluat acest ticket!`,
+    embeds: [{
+      title: `${selectedType} Ticket`,
+      color: 5814783,
+      fields: [
+        { name: "Email", value: email },
+        { name: "Discord", value: discord },
+        { name: "Issue Type", value: selectedType },
+        { name: "Description", value: message },
+        { name: "Proof", value: proof || "Nu are dovezi" },
+        { name: "User ID", value: userId }
+      ]
+    }]
+  };
+
+  fetch(webhookURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    successBox.style.display = "block";
+    setTimeout(()=>successBox.style.display="none",7000);
+    document.getElementById("messageInput").value = "";
+    document.getElementById("proofInput").value = "";
+    ticketForm.style.display = "none";
+    formContainer.style.display = "none";
+    createBtn.style.display = "block";
+  })
+  .catch(err => { console.error(err); alert("Failed to send ticket. Please try again."); });
+};
+
+// Profile Card
+document.getElementById("saveBtn").onclick = async () => {
+  const user = auth.currentUser;
+  if(!user) return;
+  const discord = document.getElementById("cardDiscord").value;
+  const avatar = document.getElementById("cardAvatarURL").value;
+  await update(ref(db,'users/'+user.uid),{discord, avatar});
+  loadProfile(user.uid);
+  alert("Profile updated!");
+};
+document.getElementById("profileBtn").onclick = () => document.getElementById("profileCard").classList.toggle("hidden");
+document.getElementById("logoutBtn").onclick = async () => {
+  await signOut(auth);
+  document.getElementById("profileCard").classList.add("hidden");
+  hideAll();
+  showAuth();
+};
+
+let isLogin=false;
+document.getElementById("switchMode").onclick = () => {
+  const title=document.getElementById("authTitle");
+  const btn=document.getElementById("authBtn");
+  const discordInput=document.getElementById("discordName");
+  const uidInput=document.getElementById("userID");
+  if(isLogin){
+    title.textContent="Register"; btn.textContent="Register";
+    discordInput.style.display="block"; uidInput.style.display="block";
+    document.getElementById("switchMode").textContent="Already have an account? Login";
+    isLogin=false;
+  } else {
+    title.textContent="Login"; btn.textContent="Login";
+    discordInput.style.display="none"; uidInput.style.display="none";
+    document.getElementById("switchMode").textContent="Don't have an account? Register";
+    isLogin=true;
+  }
+};
+
+document.getElementById("authBtn").onclick = async () => {
+  const email = document.getElementById("email").value;
+  const pass = document.getElementById("password").value;
+  const discord = document.getElementById("discordName").value;
+  const uidInput = document.getElementById("userID").value;
+  const conf = document.getElementById("confirmPassword").value;
+
+  if(!isLogin){
+    if(pass!==conf) return alert("Passwords do not match!");
+    try{
+      const userCred = await createUserWithEmailAndPassword(auth,email,pass);
+      await set(ref(db,'users/'+userCred.user.uid),{discord,email,avatar:"https://cdn.discordapp.com/attachments/1153942954650648657/1442168936501215283/NTc5MjQxMS5qcGc.png",uid:uidInput});
+      alert("Account created!");
+    } catch(e){ alert(e.message); }
+  } else {
+    try{ await signInWithEmailAndPassword(auth,email,pass); } catch(e){ alert(e.message); }
+  }
+};
+</script>
+</body>

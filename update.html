@@ -1,0 +1,249 @@
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loyal RolePlay – Updates</title>
+<link rel="icon" type="image/png" href="logo.png">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at center, #1c2238, #0e1324 70%);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 180px;
+  background: #1f2a41;
+  padding-top: 35px;
+  text-align: center;
+  display: none;
+  z-index: 50;
+}
+.sidebar-logo { width: 50px; margin: 0 auto; display: block; }
+.sidebar-title { font-size: 20px; margin-top: 10px; margin-bottom: 20px; color:white; }
+.nav-item {
+  padding: 12px 20px;
+  color: #c4c9d6;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  transition: 0.18s;
+}
+.nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
+
+.content { margin-left: 180px; padding: 40px; display: none; }
+
+h1 { margin: 0; font-size: 40px; margin-bottom: 25px; letter-spacing: 3px; }
+
+.update-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 25px;
+  border-left: 4px solid #3ba7ff;
+  box-shadow: 0 0 15px rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.5s ease;
+}
+.update-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+.update-version { font-size: 18px; font-weight: bold; color: #ffffff; }
+.update-date { font-size: 14px; color: #b6c3d7; }
+.update-text { color: #d1d8e7; line-height: 1.6; white-space: pre-line; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.profile { position: fixed; top:18px; right:20px; display:flex; align-items:center; cursor:pointer; z-index:9999; display:none; }
+.profile img { width:60px; height:60px; border-radius:50%; object-fit:cover; margin-right:12px; border:2px solid #1a74ff; }
+.profile span { font-weight:bold; color:white; font-size:18px; }
+
+.profile-card { display:none; position:fixed; top:90px; right:20px; background: rgba(255,255,255,0.08); padding:20px; border-radius:12px; width:300px; box-shadow:0 0 20px rgba(0,0,0,0.4); backdrop-filter:blur(6px); z-index:1000; }
+.profile-card img { width:80px; height:80px; border-radius:50%; margin-bottom:10px; border:2px solid #1a74ff; }
+.profile-card input { width:100%; padding:10px; margin-bottom:10px; border-radius:6px; border:none; background: rgba(255,255,255,0.1); color:white; }
+.profile-card input[disabled] { background: rgba(255,255,255,0.05); color:#b3b8c7; }
+.profile-card button { width:100%; padding:12px; border:none; border-radius:6px; background:#1a74ff; font-weight:bold; cursor:pointer; color:white; margin-bottom:5px; }
+.profile-card button:hover { background:#0f5cd4; }
+
+#loadingScreen {
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  background: linear-gradient(135deg, #1c2238, #0e1324);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:99999;
+  color:white;
+  font-size:24px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+.loader-text { animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%, 100% { opacity:1; } 50% { opacity:0.5; } }
+
+</style>
+</head>
+<body>
+
+<div id="loadingScreen"><div class="loader-text">Loading Loyal RolePlay...</div></div>
+
+<div class="sidebar" id="sidebar">
+  <img src="logo.png" class="sidebar-logo">
+  <div class="sidebar-title">Loyal RolePlay</div>
+  <a class="nav-item" href="dashboard.html">Dashboard</a>
+  <a class="nav-item" href="update.html">Updates</a>
+  <a class="nav-item" href="support.html">Support</a>
+</div>
+
+<div class="content" id="mainContent">
+  <h1>Latest Updates</h1>
+  <div id="updatesContainer"></div>
+</div>
+
+<div class="profile" id="profileBtn">
+  <img id="profileAvatar" src="">
+  <span id="profileName"></span>
+</div>
+
+<div class="profile-card" id="profileCard">
+  <img id="cardAvatar" src="">
+  <input type="text" id="cardDiscord" placeholder="Discord Name">
+  <input type="text" id="cardEmail" placeholder="Email" disabled>
+  <input type="text" id="cardUID" placeholder="User ID" disabled>
+  <input type="text" id="cardAvatarURL" placeholder="Avatar URL">
+  <button id="saveBtn">Save</button>
+  <button id="logoutBtn">Logout</button>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDuwtx8gFcD4nVPPR1Ej0qGZSDqskVrj48",
+  authDomain: "PHXp-7ad68.firebaseapp.com",
+  databaseURL: "https://PHXp-7ad68-default-rtdb.firebaseio.com",
+  projectId: "PHXp-7ad68",
+  storageBucket: "PHXp-7ad68.appspot.com",
+  messagingSenderId: "958464426444",
+  appId: "1:958464426444:web:4ddef0be7bf73a7f471d69",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getDatabase();
+
+const loadingScreen = document.getElementById('loadingScreen');
+const sidebar = document.getElementById('sidebar');
+const mainContent = document.getElementById('mainContent');
+const profileBtn = document.getElementById('profileBtn');
+const profileCard = document.getElementById('profileCard');
+
+function hideAll(){
+  sidebar.style.display = 'none';
+  mainContent.style.display = 'none';
+  profileBtn.style.display = 'none';
+}
+function showContent(){
+  sidebar.style.display = 'block';
+  mainContent.style.display = 'block';
+  profileBtn.style.display = 'flex';
+}
+
+async function loadProfile(uid){
+  const snapshot = await get(ref(db,'users/'+uid));
+  if(snapshot.exists()){
+    const data = snapshot.val();
+    document.getElementById("profileName").textContent = data.discord || "No Name";
+    document.getElementById("profileAvatar").src = data.avatar || "https://cdn.discordapp.com/attachments/1153942954650648657/1442168936501215283/NTc5MjQxMS5qcGc.png";
+    document.getElementById("cardAvatar").src = data.avatar || "";
+    document.getElementById("cardDiscord").value = data.discord || "";
+    document.getElementById("cardEmail").value = data.email || "";
+    document.getElementById("cardUID").value = data.uid || "";
+    document.getElementById("cardAvatarURL").value = data.avatar || "";
+  }
+}
+
+document.getElementById("saveBtn").onclick = async () => {
+  const user = auth.currentUser;
+  if(!user) return;
+  const discord = document.getElementById("cardDiscord").value;
+  const avatar = document.getElementById("cardAvatarURL").value;
+  await update(ref(db,'users/'+user.uid),{discord:discord, avatar:avatar});
+  loadProfile(user.uid);
+  alert("Profile updated!");
+}
+
+
+profileBtn.onclick = () => {
+  profileCard.style.display = profileCard.style.display==="block"?"none":"block";
+}
+
+
+document.getElementById("logoutBtn").onclick = async () => {
+  await signOut(auth);
+  hideAll();
+  loadingScreen.style.display = 'flex';
+}
+
+
+onAuthStateChanged(auth, user => {
+  loadingScreen.style.display = 'none'; 
+  if(user){
+    hideAll();
+    showContent();
+    loadProfile(user.uid);
+  } else {
+    hideAll();
+  }
+});
+
+const updates = [
+  {
+    version: "v1.2.5",
+    date: "07.12.2025",
+    text: `• Added Christmas Event (collect 10 gifts)
+• A fost adaugat job de Hot de Masini
+• Au fost adaubat Pacanele,Ruleta si blackjack
+• Au fost adaugate Jafurile la Bancile mici, Biju si Pacific`
+  },
+  {
+    version: "v1.2.4",
+    date: "22.11.2025",
+    text:`•A fost schimbat speedometer ul
+•A fost adaubat centura
+•A fost reparat CarRadio
+•Au fost adaugate anunturile ilegale
+•A fost schimbat carmenu de pe Z pe M
+•A fost schimbata harta sa fie cu cod uri postale
+•A fost schimbat loading ul`
+  },
+];
+
+function renderUpdates(){
+  const container = document.getElementById("updatesContainer");
+  container.innerHTML = "";
+  updates.forEach(update=>{
+    const card = document.createElement("div");
+    card.className = "update-card";
+    card.innerHTML = `
+      <div class="update-header">
+        <div class="update-version">${update.version}</div>
+        <div class="update-date">${update.date}</div>
+      </div>
+      <div class="update-text">${update.text}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+renderUpdates();
+</script>
+
+</body>

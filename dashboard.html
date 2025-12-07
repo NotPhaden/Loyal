@@ -1,0 +1,242 @@
+
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Loyal RolePlay</title>
+<link rel="icon" type="image/png" href="logo.png">
+
+<style>
+body { margin:0; font-family: Arial,sans-serif; background: radial-gradient(circle at center,#1c2238,#0e1324 70%); color:#fff; overflow-x:hidden; }
+#loadingScreen { position:fixed; top:0; left:0; width:100%; height:100%; background:linear-gradient(135deg,#1c2238,#0e1324); display:flex; justify-content:center; align-items:center; z-index:99999; color:white; font-size:24px; font-weight:bold; letter-spacing:2px; }
+.loader-text { animation:pulse 1.5s infinite; }
+@keyframes pulse {0%,100%{opacity:1;}50%{opacity:0.5;}}
+
+.hidden { display:none !important; }
+
+.sidebar { position:fixed; left:0; top:0; height:100%; width:180px; background:#1f2a41; padding-top:35px; text-align:center; z-index:50; }
+.sidebar-logo { width:50px; display:block; margin:0 auto; }
+.sidebar-title { color:#fff; font-size:20px; margin-top:10px; margin-bottom:20px; }
+.nav-item { padding:12px 20px; color:#c4c9d6; cursor:pointer; transition:0.18s; text-decoration:none; display:block; text-align:left; }
+.nav-item:hover { background: rgba(255,255,255,0.05); color:#fff; }
+
+.content { margin-left:180px; padding:100px 40px 40px 40px; position:relative; z-index:10; }
+
+.notification-bell { position:fixed; top:18px; left:190px; font-size:28px; cursor:pointer; user-select:none; z-index:9999; background:rgba(255,255,255,0.03); padding:8px 10px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.45); }
+.notification-bell:hover { opacity:0.9; }
+
+.notification-box { position:fixed; top:60px; left:190px; width:300px; max-height:60vh; overflow-y:auto; background:rgba(20,22,30,0.98); border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.6); padding:12px; display:none; z-index:9998; border:1px solid rgba(255,255,255,0.04); }
+.notification-box h3 { margin:0 0 8px 0; font-size:16px; color:#e6eefc; }
+.notif { background: rgba(255,255,255,0.03); padding:10px; border-radius:8px; margin-bottom:10px; border-left:3px solid #3ba7ff; color:#dbe8ff; font-size:14px; }
+.notif small { display:block; margin-top:6px; color:#9fb3d6; font-size:12px; }
+
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:25px; margin-top:20px; }
+.card { background: rgba(255,255,255,0.05); padding:25px; border-radius:12px; backdrop-filter:blur(8px); box-shadow:0 0 15px rgba(0,0,0,0.35); transition:0.2s; }
+.card:hover { background: rgba(255,255,255,0.08); transform:translateY(-4px); }
+.card h2 { margin:0 0 10px 0; font-size:26px; color:#fff; }
+.card p { margin:0; line-height:1.6; color:#c4c9d6; }
+
+.player { display:flex; align-items:center; gap:12px; margin-top:14px; }
+.player img { width:55px; height:55px; object-fit:cover; border-radius:8px; border:2px solid rgba(255,255,255,0.12); }
+.player-info b { display:block; color:#fff; font-size:15px; }
+.player-info span { color:#c4c9d6; font-size:13px; }
+
+.vehicle-number { font-size:40px; margin-top:12px; color:#fff; }
+
+.profile { position:fixed; top:18px; right:20px; display:flex; align-items:center; cursor:pointer; z-index:9999; }
+.profile img { width:60px; height:60px; border-radius:50%; object-fit:cover; margin-right:12px; border:2px solid #1a74ff; }
+.profile span { font-weight:bold; color:white; font-size:18px; }
+
+.profile-card { position:fixed; top:90px; right:20px; background: rgba(255,255,255,0.08); padding:20px; border-radius:12px; width:300px; box-shadow:0 0 20px rgba(0,0,0,0.4); backdrop-filter:blur(6px); z-index:1000; display:none; }
+.profile-card img { width:80px; height:80px; border-radius:50%; margin-bottom:10px; border:2px solid #1a74ff; }
+.profile-card input { width:100%; padding:10px; margin-bottom:10px; border-radius:6px; border:none; background: rgba(255,255,255,0.1); color:white; }
+.profile-card input[disabled] { background: rgba(255,255,255,0.05); color:#b3b8c7; }
+.profile-card button { width:100%; padding:12px; border:none; border-radius:6px; background:#1a74ff; font-weight:bold; cursor:pointer; color:white; margin-bottom:5px; }
+.profile-card button:hover { background:#0f5cd4; }
+
+.auth-popup { display:flex; justify-content:flex-start; align-items:flex-start; position:fixed; top:0; left:0; width:100%; height:100%; background: url('background.png') no-repeat center center/cover; backdrop-filter:blur(4px); z-index:2000; }
+.auth-box { background: rgba(30,34,55,0.85); padding:40px 30px; border-radius:16px; width:350px; margin:40px; text-align:center; color:#fff; animation:fadeIn 0.3s ease; }
+.auth-box h2 { margin:10px 0; font-size:26px; color:#1a74ff; }
+.auth-box p { margin-bottom:20px; color:#c4c9d6; font-size:16px; }
+.auth-box input { width:100%; padding:12px; margin-bottom:12px; border-radius:8px; border:none; background: rgba(255,255,255,0.12); color:white; font-size:15px; }
+.auth-box button { width:100%; padding:12px; border:none; border-radius:8px; background:#1a74ff; font-weight:bold; cursor:pointer; color:white; font-size:15px; }
+.auth-box button:hover { background:#0f5cd4; }
+.auth-box #switchMode { margin-top:15px; cursor:pointer; color:#1a74ff; text-decoration:underline; }
+
+@keyframes fadeIn {0%{opacity:0; transform:translateY(-20px);}100%{opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body>
+
+<div id="loadingScreen"><div class="loader-text">Loading Loyal RolePlay...</div></div>
+
+<div class="sidebar" id="sidebar">
+<img src="logo.png" class="sidebar-logo" alt="logo">
+<div class="sidebar-title">Loyal RolePlay</div>
+<a class="nav-item" href="dashboard.html">Dashboard</a>
+<a class="nav-item" href="update.html">Updates</a>
+<a class="nav-item" href="support.html">Support</a>
+</div>
+
+<div class="content" id="mainContent">
+<div class="cards">
+<div class="card" id="card-rules">
+<h2>📜 New Rules</h2>
+<p>
+➤ <b>Rule 1:</b> Voice-changer excesiv este interzis în situații serioase de RP.<br><br>
+➤ <b>Rule 2:</b> Drive-by fără motiv RP valid este strict interzis.<br><br>
+➤ <b>Rule 3:</b> Orice conflict trebuie să aibă o intenție RP clară înainte de acțiuni violente.
+</p>
+</div>
+
+<div class="card" id="card-quest">
+<h2>🎄 Special Quest – Christmas Event</h2>
+<p>
+Moș Crăciun are nevoie de ajutor! Au fost furate <b>10 cadouri magice</b>, răspândite în Los Santos.<br><br>
+🎁 <b>Obiectiv:</b> Găsește toate cadourile din oraș.<br>
+⭐ <b>Recompensă:</b> Skin special + 50.000$ + vehicul Xmas Edition.<br>
+📍 <i>Hint:</i> Verifică Vespucci Beach, Sandy Shores și Vinewood.
+</p>
+</div>
+
+<div class="card" id="card-topplayers">
+<h2>🏆 Top 3 Active Players</h2>
+<div id="topPlayersList"></div>
+</div>
+
+<div class="card" id="card-vehicles">
+<h2>🚗 Total Vehicles</h2>
+<div class="vehicle-number" id="vehicleNumber">1524</div>
+<p>*Poți modifica numărul din cod*</p>
+</div>
+</div>
+</div>
+
+<div class="notification-bell" id="bellBtn" title="Notifications">🔔</div>
+<div class="notification-box" id="notifBox" aria-hidden="true">
+<h3>Notifications</h3>
+<div id="notifList"></div>
+</div>
+
+<div class="profile hidden" id="profileBtn">
+<img id="profileAvatar" src="">
+<span id="profileName"></span>
+</div>
+<div class="profile-card" id="profileCard">
+<img id="cardAvatar" src="">
+<input type="text" id="cardDiscord" placeholder="Discord Name">
+<input type="text" id="cardEmail" placeholder="Email" disabled>
+<input type="text" id="cardUID" placeholder="User ID" disabled>
+<input type="text" id="cardAvatarURL" placeholder="Avatar URL">
+<button id="saveBtn">Save</button>
+<button id="logoutBtn">Logout</button>
+</div>
+
+<div class="auth-popup hidden" id="authPopup">
+<div class="auth-box">
+<h2 id="authTitle">Register</h2>
+<p>Loyal RolePlay</p>
+<input type="text" id="discordName" placeholder="Discord name (ex: Player#1234)">
+<input type="text" id="userID" placeholder="User ID">
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<input type="password" id="confirmPassword" placeholder="Confirm password">
+<button id="authBtn">Register</button>
+<p id="switchMode">Already have an account? Login</p>
+</div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getDatabase, ref, set, get, update } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+
+const firebaseConfig = {
+apiKey:"AIzaSyDuwtx8gFcD4nVPPR1Ej0qGZSDqskVrj48",
+authDomain:"PHXp-7ad68.firebaseapp.com",
+databaseURL:"https://PHXp-7ad68-default-rtdb.firebaseio.com",
+projectId:"PHXp-7ad68",
+storageBucket:"PHXp-7ad68.appspot.com",
+messagingSenderId:"958464426444",
+appId:"1:958464426444:web:4ddef0be7bf73a7f471d69"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getDatabase();
+const loadingScreen = document.getElementById('loadingScreen');
+
+let isLogin = false;
+const hideAll = ()=>{ document.getElementById("authPopup").classList.add("hidden"); document.getElementById("sidebar").classList.add("hidden"); document.getElementById("mainContent").classList.add("hidden"); document.getElementById("profileBtn").classList.add("hidden"); document.getElementById("profileCard").classList.add("hidden"); }
+const showAuth = ()=>document.getElementById("authPopup").classList.remove("hidden");
+const showContent = ()=>{ document.getElementById("sidebar").classList.remove("hidden"); document.getElementById("mainContent").classList.remove("hidden"); document.getElementById("profileBtn").classList.remove("hidden"); }
+
+async function loadProfile(uid){
+const snapshot=await get(ref(db,'users/'+uid));
+if(snapshot.exists()){
+const data=snapshot.val();
+document.getElementById("profileName").textContent=data.discord||"No Name";
+document.getElementById("profileAvatar").src=data.avatar||"https://via.placeholder.com/60";
+document.getElementById("cardAvatar").src=data.avatar||"https://via.placeholder.com/80";
+document.getElementById("cardDiscord").value=data.discord||"";
+document.getElementById("cardEmail").value=data.email||"";
+document.getElementById("cardUID").value=data.uid||"";
+document.getElementById("cardAvatarURL").value=data.avatar||"";
+}
+}
+
+document.getElementById("saveBtn").onclick=async()=>{
+const user=auth.currentUser;if(!user)return;
+const discord=document.getElementById("cardDiscord").value;
+const avatar=document.getElementById("cardAvatarURL").value;
+await update(ref(db,'users/'+user.uid),{discord,avatar});
+loadProfile(user.uid);
+alert("Profile updated!");
+}
+
+document.getElementById("profileBtn").onclick=()=>{document.getElementById("profileCard").classList.toggle("hidden");}
+document.getElementById("logoutBtn").onclick=async()=>{await signOut(auth);document.getElementById("profileCard").classList.add("hidden");hideAll();showAuth();}
+
+onAuthStateChanged(auth,user=>{
+loadingScreen.style.display='none';
+if(user){hideAll();showContent();loadProfile(user.uid);}
+else{hideAll();showAuth();}
+});
+
+document.getElementById("switchMode").onclick=()=>{
+const title=document.getElementById("authTitle");
+const btn=document.getElementById("authBtn");
+const discordInput=document.getElementById("discordName");
+const uidInput=document.getElementById("userID");
+if(isLogin){title.textContent="Register";btn.textContent="Register";discordInput.style.display="block";uidInput.style.display="block";document.getElementById("switchMode").textContent="Already have an account? Login";isLogin=false;}
+else{title.textContent="Login";btn.textContent="Login";discordInput.style.display="none";uidInput.style.display="none";document.getElementById("switchMode").textContent="Don't have an account? Register";isLogin=true;}
+}
+
+document.getElementById("authBtn").onclick=async()=>{
+const email=document.getElementById("email").value,pass=document.getElementById("password").value;
+const discord=document.getElementById("discordName").value,uidInput=document.getElementById("userID").value,conf=document.getElementById("confirmPassword").value;
+if(!isLogin){if(pass!==conf)return alert("Passwords do not match!");
+try{const userCred=await createUserWithEmailAndPassword(auth,email,pass);await set(ref(db,'users/'+userCred.user.uid),{discord,email,avatar:"https://via.placeholder.com/60",uid:uidInput});alert("Account created!");}catch(e){alert(e.message);}}
+else{try{await signInWithEmailAndPassword(auth,email,pass);}catch(e){alert(e.message);}}
+}
+
+const notifications=["Server update v1.2.5 released!","Christmas Event starts today! Collect 10 gifts around the map.","New rules published — check the rules card."];
+const topPlayers=[
+{name:"PlayerOne",hours:"42h",img:"https://cdn.discordapp.com/attachments/1153942954650648657/1442168936501215283/NTc5MjQxMS5qcGc.png?ex=6936403c&is=6934eebc&hm=38f24ee46e8d34c4ec652a43436f9be6d399549c4360b426cc38408ec0acf85c&"},
+{name:"NightWolf",hours:"36h",img:"https://cdn.discordapp.com/attachments/1153942954650648657/1442168936501215283/NTc5MjQxMS5qcGc.png?ex=6936403c&is=6934eebc&hm=38f24ee46e8d34c4ec652a43436f9be6d399549c4360b426cc38408ec0acf85c&"},
+{name:"Shadow",hours:"28h",img:"https://cdn.discordapp.com/attachments/1153942954650648657/1442168936501215283/NTc5MjQxMS5qcGc.png?ex=6936403c&is=6934eebc&hm=38f24ee46e8d34c4ec652a43436f9be6d399549c4360b426cc38408ec0acf85c&"}
+];
+let totalVehicles=300;
+
+const notifBox=document.getElementById('notifBox'),notifList=document.getElementById('notifList'),bellBtn=document.getElementById('bellBtn');
+
+function renderNotifications(){ notifList.innerHTML=''; notifications.forEach(msg=>{ const d=document.createElement('div'); d.className='notif'; d.innerHTML=`${msg}<small>${new Date().toLocaleString()}</small>`; notifList.appendChild(d); }); }
+function toggleNotifications(){ notifBox.style.display=(notifBox.style.display==='block'?'none':'block'); notifBox.setAttribute('aria-hidden',notifBox.style.display==='block'?'false':'true'); if(notifBox.style.display==='block') renderNotifications(); }
+bellBtn.addEventListener('click',e=>{ e.stopPropagation(); toggleNotifications(); });
+document.addEventListener('click',e=>{ if(!notifBox.contains(e.target)&&!bellBtn.contains(e.target)){ notifBox.style.display='none'; notifBox.setAttribute('aria-hidden','true'); } });
+
+function renderTopPlayers(){ const container=document.getElementById('topPlayersList'); container.innerHTML=''; topPlayers.forEach(p=>{ const wrapper=document.createElement('div'); wrapper.className='player'; const img=document.createElement('img'); img.src=p.img; img.alt=p.name; const info=document.createElement('div'); info.className='player-info'; info.innerHTML=`<b>${p.name}</b><span>${p.hours} played</span>`; wrapper.appendChild(img); wrapper.appendChild(info); container.appendChild(wrapper); }); }
+function renderVehicles(){ document.getElementById('vehicleNumber').innerText=totalVehicles; }
+
+renderTopPlayers(); renderVehicles();
+</script>
+</body>

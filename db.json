@@ -1,0 +1,10 @@
+{
+  "users": {
+    "UID_1": {
+      "discord": "PlayerOne#1234",
+      "email": "playerone@example.com",
+      "avatar": "https://cdn.discordapp.com/attachments/1153942954650648657/1442168936501215283/NTc5MjQxMS5qcGc.png",
+      "uid": "UID_1"
+    }
+  }
+}
