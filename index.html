@@ -1,8 +1,8 @@
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loyal RolePlay</title>
+<title>LA NUEVA
+FAMILIA MADE By</title>
 <link rel="icon" type="image/png" href="logo.png">
 
 <style>
@@ -15,29 +15,16 @@
     font-family:'Poppins',sans-serif;
 }
 
-:root{
-    --text:#ffffff;
-    --muted:#a1a1aa;
-    --purple:#8b5cf6;
-    --purple2:#a855f7;
-    --glass:rgba(16,16,24,.58);
-    --border:rgba(255,255,255,.06);
-    --shadow:0 20px 45px rgba(0,0,0,.30);
-}
-
 body {
     margin:0;
-    color:var(--text);
+    color:white;
     background:
       linear-gradient(rgba(7,7,12,.38), rgba(7,7,12,.68)),
       url("background.png") center/cover no-repeat fixed;
-    overflow-x:hidden;
 }
 
-/* hidden */
 .hidden{ display:none !important; }
 
-/* LOADING */
 #loadingScreen{
   position:fixed;
   inset:0;
@@ -45,82 +32,47 @@ body {
   justify-content:center;
   align-items:center;
   background:rgba(0,0,0,.7);
-  z-index:99999;
+  z-index:9999;
   font-size:22px;
   font-weight:600;
 }
 
-/* SIDEBAR (MATCH DASHBOARD) */
-.sidebar{
-    position:fixed;
-    top:20px;
-    left:20px;
-    bottom:20px;
-    width:285px;
-    padding:28px 20px;
-    border-radius:34px;
-    background:rgba(10,10,18,.68);
-    backdrop-filter:blur(22px);
-    border:1px solid rgba(255,255,255,.05);
-}
-
-.sidebar-logo{
-    width:55px;
-    display:block;
-    margin:0 auto 10px auto;
-}
-
-.sidebar-title{
-    text-align:center;
-    font-size:18px;
-    margin-bottom:25px;
-    color:white;
-    font-weight:600;
-}
-
-.nav-item{
-    display:flex;
-    align-items:center;
-    padding:14px 16px;
-    margin:6px 0;
-    border-radius:18px;
-    color:#9e9eab;
-    text-decoration:none;
-    transition:.25s;
-}
-
-.nav-item:hover{
-    background:rgba(255,255,255,.04);
-    color:white;
-}
-
-/* CONTENT */
-.content{
-    margin-left:325px;
-    padding:30px;
-}
-
-/* CARDS */
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:20px;
-    margin-top:40px;
-}
-
 .card{
-    padding:24px;
-    border-radius:30px;
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.04);
+    position:absolute;
+    left:40px;
+    top:120px;
+    width:220px;
+    padding:16px;
+    border-radius:18px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(10px);
 }
 
 .card h2{
-    margin-bottom:10px;
+    font-size:16px;
+    margin-bottom:6px;
     color:#ddc4ff;
 }
 
-/* PROFILE */
+.card p{
+    font-size:12px;
+    opacity:.8;
+}
+
+.card button{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    color:white;
+    font-weight:600;
+    font-size:12px;
+    background:linear-gradient(135deg,#8b5cf6,#a855f7);
+}
+
 .profile{
     position:fixed;
     top:25px;
@@ -138,55 +90,6 @@ body {
     border:2px solid rgba(139,92,246,.25);
 }
 
-/* AUTH POPUP (light adapt) */
-.auth-popup{
-    display:flex;
-    justify-content:flex-start;
-    align-items:flex-start;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.6);
-}
-
-.auth-box{
-    background:rgba(16,16,24,.9);
-    padding:35px;
-    border-radius:25px;
-    width:340px;
-    margin:40px;
-}
-
-.auth-box input,
-.profile-card input{
-    width:100%;
-    padding:12px;
-    margin:8px 0;
-    border-radius:12px;
-    border:none;
-    background:rgba(255,255,255,.05);
-    color:white;
-}
-
-.auth-box button,
-.profile-card button,
-.card button{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    color:white;
-    font-weight:600;
-    background:linear-gradient(135deg,var(--purple),var(--purple2));
-}
-
-.auth-box button:hover,
-.card button:hover{
-    opacity:.9;
-}
-
-/* PROFILE CARD */
 .profile-card{
     position:fixed;
     top:90px;
@@ -194,7 +97,7 @@ body {
     width:300px;
     padding:20px;
     border-radius:25px;
-    background:rgba(16,16,24,.9);
+    background:rgba(16,16,24,.92);
     backdrop-filter:blur(20px);
 }
 
@@ -204,46 +107,100 @@ body {
     border-radius:50%;
     margin-bottom:10px;
 }
+
+.profile-card input{
+    width:100%;
+    padding:10px;
+    margin:6px 0;
+    border-radius:10px;
+    border:none;
+    background:rgba(255,255,255,.05);
+    color:white;
+}
+
+.profile-card button{
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    color:white;
+    background:linear-gradient(135deg,#8b5cf6,#a855f7);
+}
+
+.auth-popup{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:flex-start;
+    align-items:flex-start;
+    background:rgba(0,0,0,.6);
+}
+
+.auth-box{
+    margin:40px;
+    width:340px;
+    padding:30px;
+    border-radius:20px;
+    background:rgba(16,16,24,.95);
+}
+
+.auth-box input{
+    width:100%;
+    padding:10px;
+    margin:6px 0;
+    border-radius:10px;
+    border:none;
+    background:rgba(255,255,255,.05);
+    color:white;
+}
+
+.auth-box button{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border:none;
+    border-radius:10px;
+    font-weight:600;
+    cursor:pointer;
+    color:white;
+    background:linear-gradient(135deg,#8b5cf6,#a855f7);
+}
+
+#switchMode{
+    margin-top:10px;
+    cursor:pointer;
+    font-size:13px;
+    opacity:.8;
+}
 </style>
 </head>
+
 <body>
 
-<div id="loadingScreen"><div class="loader-text">Loading Loyal RolePlay...</div></div>
+<div id="loadingScreen">Loading LA NUEVA
+FAMILIA MADE By...</div>
 
-<div class="sidebar hidden" id="sidebar">
-  <img src="logo.png" class="sidebar-logo">
-  <div class="sidebar-title">Loyal RolePlay</div>
-
-  <a class="nav-item" href="dashboard.html">Dashboard</a>
-  <a class="nav-item" href="/updates">Updates</a>
-  <a class="nav-item" href="/support">Support</a>
-</div>
-
-<div class="content hidden" id="mainContent">
-  <div class="cards">
-    <div class="card" id="discordCard">
-      <h2>Discord</h2>
-      <p>Join our Discord server: <b>Loyal RolePlay</b></p>
-      <button onclick="window.open('https://discord.gg/EXEMPLU','_blank')">Join</button>
-    </div>
-    <div class="card" id="updatesCard">
-      <h2>Latest Updates</h2>
-      <p>Check out the latest news and updates on <a href="update.html" style="color:#1a74ff;">Update Page</a>.</p>
-    </div>
-  </div>
+<!-- DASHBOARD BUTTON -->
+<div class="card">
+  <h2>Dashboard</h2>
+  <p>Accesează pagina</p>
+  <button onclick="window.location.href='dashboard.html'">Go</button>
 </div>
 
 <div class="profile hidden" id="profileBtn">
-  <img id="profileAvatar" src="">
+  <img id="profileAvatar">
   <span id="profileName"></span>
 </div>
 
 <div class="profile-card hidden" id="profileCard">
-  <img id="cardAvatar" src="">
-  <input type="text" id="cardDiscord" placeholder="Discord Name">
-  <input type="text" id="cardEmail" placeholder="Email" disabled>
-  <input type="text" id="cardUID" placeholder="User ID" disabled>
-  <input type="text" id="cardAvatarURL" placeholder="Avatar URL">
+  <img id="cardAvatar">
+  <input id="cardDiscord" placeholder="Discord Name">
+  <input id="cardEmail" disabled>
+  <input id="cardUID" disabled>
+  <input id="cardAvatarURL" placeholder="Avatar URL">
   <button id="saveBtn">Save</button>
   <button id="logoutBtn">Logout</button>
 </div>
@@ -251,14 +208,15 @@ body {
 <div class="auth-popup hidden" id="authPopup">
   <div class="auth-box">
     <h2 id="authTitle">Register</h2>
-    <p>Loyal RolePlay</p>
-    <input type="text" id="discordName" placeholder="Discord name (ex: Player#1234)">
-    <input type="text" id="userID" placeholder="User ID">
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <input type="password" id="confirmPassword" placeholder="Confirm password">
+
+    <input id="discordName" placeholder="Discord Name">
+    <input id="userID" placeholder="User ID">
+    <input id="email" type="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+    <input id="confirmPassword" type="password" placeholder="Confirm Password">
+
     <button id="authBtn">Register</button>
-    <p id="switchMode">Already have an account? Login</p>
+    <p id="switchMode">Already have account? Login</p>
   </div>
 </div>
 
@@ -273,8 +231,7 @@ const firebaseConfig = {
   projectId: "la-nueva-2f499",
   storageBucket: "la-nueva-2f499.appspot.com",
   messagingSenderId: "999957175996",
-  appId: "1:999957175996:web:84c834a90bd3ced93dbab9",
-  measurementId: "G-6728MK75NJ"
+  appId: "1:999957175996:web:84c834a90bd3ced93dbab9"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -282,60 +239,60 @@ const auth = getAuth();
 const db = getDatabase();
 
 let isLogin = false;
-const loadingScreen = document.getElementById('loadingScreen');
 
 const hideAll = () => {
   document.getElementById("authPopup").classList.add("hidden");
-  document.getElementById("sidebar").classList.add("hidden");
-  document.getElementById("mainContent").classList.add("hidden");
   document.getElementById("profileBtn").classList.add("hidden");
   document.getElementById("profileCard").classList.add("hidden");
 };
 
-const showAuth = () => document.getElementById("authPopup").classList.remove("hidden");
+const showAuth = () => {
+  document.getElementById("authPopup").classList.remove("hidden");
+};
+
 const showContent = () => {
-  document.getElementById("sidebar").classList.remove("hidden");
-  document.getElementById("mainContent").classList.remove("hidden");
   document.getElementById("profileBtn").classList.remove("hidden");
 };
 
 async function loadProfile(uid){
-  const snapshot = await get(ref(db,'users/'+uid));
-  if(snapshot.exists()){
-    const data = snapshot.val();
-    document.getElementById("profileName").textContent = data.discord || "No Name";
-    document.getElementById("profileAvatar").src = data.avatar || "https://cdn.discordapp.com/attachments/1153942954650648657/1442168936501215283/NTc5MjQxMS5qcGc.png";
-    document.getElementById("cardAvatar").src = data.avatar || "";
-    document.getElementById("cardDiscord").value = data.discord || "";
-    document.getElementById("cardEmail").value = data.email || "";
-    document.getElementById("cardUID").value = data.uid || "";
-    document.getElementById("cardAvatarURL").value = data.avatar || "";
-  }
-}
+  const snap = await get(ref(db,'users/'+uid));
+  if(snap.exists()){
+    const d = snap.val();
 
-document.getElementById("saveBtn").onclick = async () => {
-  const user = auth.currentUser;
-  if(!user) return;
-  const discord = document.getElementById("cardDiscord").value;
-  const avatar = document.getElementById("cardAvatarURL").value;
-  await update(ref(db,'users/'+user.uid),{discord:discord, avatar:avatar});
-  loadProfile(user.uid);
-  alert("Profile updated!");
+    document.getElementById("profileName").textContent = d.discord || "User";
+    document.getElementById("profileAvatar").src = d.avatar || "";
+    document.getElementById("cardAvatar").src = d.avatar || "";
+
+    document.getElementById("cardDiscord").value = d.discord || "";
+    document.getElementById("cardEmail").value = d.email || "";
+    document.getElementById("cardUID").value = d.uid || "";
+    document.getElementById("cardAvatarURL").value = d.avatar || "";
+  }
 }
 
 document.getElementById("profileBtn").onclick = () => {
   document.getElementById("profileCard").classList.toggle("hidden");
-}
+};
+
+document.getElementById("saveBtn").onclick = async () => {
+  const user = auth.currentUser;
+  if(!user) return;
+
+  await update(ref(db,'users/'+user.uid),{
+    discord: document.getElementById("cardDiscord").value,
+    avatar: document.getElementById("cardAvatarURL").value
+  });
+
+  loadProfile(user.uid);
+};
 
 document.getElementById("logoutBtn").onclick = async () => {
   await signOut(auth);
-  document.getElementById("profileCard").classList.add("hidden");
-  hideAll();
-  showAuth();
-}
+};
 
 onAuthStateChanged(auth, user => {
-  loadingScreen.style.display = 'none';
+  document.getElementById("loadingScreen").style.display = "none";
+
   if(user){
     hideAll();
     showContent();
@@ -347,53 +304,49 @@ onAuthStateChanged(auth, user => {
 });
 
 document.getElementById("switchMode").onclick = () => {
-  const title = document.getElementById("authTitle");
-  const btn = document.getElementById("authBtn");
-  const discordInput = document.getElementById("discordName");
-  const uidInput = document.getElementById("userID");
-  if(isLogin){
-    title.textContent = "Register";
-    btn.textContent = "Register";
-    discordInput.style.display="block";
-    uidInput.style.display="block";
-    document.getElementById("switchMode").textContent = "Already have an account? Login";
-    isLogin = false;
-  } else {
-    title.textContent = "Login";
-    btn.textContent = "Login";
-    discordInput.style.display="none";
-    uidInput.style.display="none";
-    document.getElementById("switchMode").textContent = "Don't have an account? Register";
-    isLogin = true;
-  }
+  isLogin = !isLogin;
+
+  document.getElementById("authTitle").textContent = isLogin ? "Login" : "Register";
+  document.getElementById("authBtn").textContent = isLogin ? "Login" : "Register";
 };
 
 document.getElementById("authBtn").onclick = async () => {
-  const email = document.getElementById("email").value;
-  const pass = document.getElementById("password").value;
-  const discord = document.getElementById("discordName").value;
-  const uidInput = document.getElementById("userID").value;
-  const conf = document.getElementById("confirmPassword").value;
 
-  if(!isLogin){
-    if(pass !== conf) return alert("Passwords do not match!");
-    try{
-      const userCred = await createUserWithEmailAndPassword(auth,email,pass);
+  const emailVal = document.getElementById("email").value;
+  const passVal = document.getElementById("password").value;
+  const discordVal = document.getElementById("discordName").value;
+  const uidVal = document.getElementById("userID").value;
+  const confVal = document.getElementById("confirmPassword").value;
+
+  try {
+
+    if(!isLogin){
+
+      if(passVal !== confVal){
+        alert("Parolele nu coincid!");
+        return;
+      }
+
+      const userCred = await createUserWithEmailAndPassword(auth, emailVal, passVal);
+
       await set(ref(db,'users/'+userCred.user.uid),{
-        discord:discord,
-        email:email,
-        avatar:"https://cdn.discordapp.com/attachments/1153942954650648657/1442168936501215283/NTc5MjQxMS5qcGc.png",
-        uid:uidInput
+        discord: discordVal,
+        email: emailVal,
+        uid: uidVal,
+        avatar: ""
       });
-      alert("Account created!");
-    } catch(e){ alert(e.message); }
-  } else {
-    try{ await signInWithEmailAndPassword(auth,email,pass); } catch(e){ alert(e.message); }
+
+      alert("Cont creat!");
+    }
+    else {
+      await signInWithEmailAndPassword(auth, emailVal, passVal);
+      alert("Login reușit!");
+    }
+
+  } catch (e) {
+    alert(e.message);
   }
 };
 </script>
 
 </body>
-
-
-
