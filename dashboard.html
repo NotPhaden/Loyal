@@ -116,7 +116,7 @@ const db = getDatabase();
 
 const main = document.getElementById("main");
 
-/* LOAD PROFILE */
+/* LOAD USER */
 async function loadProfile(uid){
 const snap = await get(ref(db,"users/"+uid));
 
@@ -133,15 +133,16 @@ document.getElementById("username").innerText = d.discord || "User";
 document.getElementById("welcome").innerText = "Welcome back, " + (d.discord || "User");
 }
 
-/* AUTH FIX (NO REDIRECT BUG) */
+/* FIX AUTH FLOW (NO LOOP) */
 onAuthStateChanged(auth, async (user) => {
 
-if(user){
+if(!user){
+window.location.href = "index.html";
+return;
+}
+
 main.style.display = "block";
 await loadProfile(user.uid);
-} else {
-window.location.href = "index.html";
-}
 
 });
 
