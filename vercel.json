@@ -1,14 +1,55 @@
 {
-  "rewrites": [
-    { "source": "/loyal", "destination": "/index.html" },
-    { "source": "/dashboard", "destination": "/dashboard.html" },
-    { "source": "/updates", "destination": "/update.html" },
-    { "source": "/support", "destination": "/support.html" }
-  ],
   "redirects": [
-    { "source": "/", "destination": "/index.html", "permanent": true }
+    {
+      "source": "/",
+      "destination": "/index.html",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/dashboard",
+      "destination": "/dashboard.html"
+    },
+    {
+      "source": "/membri",
+      "destination": "/membri.html"
+    },
+    {
+      "source": "/uniforma",
+      "destination": "/uniforma.html"
+    },
+    {
+      "source": "/locatii",
+      "destination": "/locatii.html"
+    },
+    {
+      "source": "/infocraft",
+      "destination": "/infocraft.html"
+    },
+    {
+      "source": "/craftarme",
+      "destination": "/craftarme.html"
+    },
+    {
+      "source": "/taskuri",
+      "destination": "/taskuri.html"
+    },
+    {
+      "source": "/livrari",
+      "destination": "/livrari.html"
+    },
+    {
+      "source": "/fonduri",
+      "destination": "/fonduri.html"
+    },
+    {
+      "source": "/telefon",
+      "destination": "/telefon.html"
+    },
+    {
+      "source": "/taxa",
+      "destination": "/taxa.html"
+    }
   ]
 }
-
-
-
