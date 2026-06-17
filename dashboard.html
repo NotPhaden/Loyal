@@ -17,16 +17,18 @@ color:white;
 overflow:hidden;
 }
 
+/* SIDEBAR */
 .sidebar{
 position:fixed;
 left:0;top:0;
-width:220px;height:100%;
+width:260px;height:100%;
 background:#1f2a41;
 padding:20px;
 }
 
 .sidebar a{
-display:block;
+display:flex;
+gap:10px;
 padding:12px;
 color:#c4c9d6;
 text-decoration:none;
@@ -35,15 +37,18 @@ border-radius:8px;
 
 .sidebar a:hover{background:rgba(255,255,255,0.05);}
 
+/* MAIN */
 .main{
-margin-left:240px;
+margin-left:280px;
 padding:30px;
+display:none;
 }
 
+/* HERO */
 .hero{
 display:flex;
-align-items:center;
 gap:15px;
+align-items:center;
 padding:20px;
 background:rgba(255,255,255,0.03);
 border-radius:15px;
@@ -55,9 +60,6 @@ border-radius:50%;
 object-fit:cover;
 border:2px solid #1a74ff;
 }
-
-.stats{display:none;} /* SCOASE COMPLET */
-
 </style>
 </head>
 
@@ -67,18 +69,26 @@ border:2px solid #1a74ff;
 <h2>Loyal RP</h2>
 
 <a href="dashboard.html"><i class="fa fa-house"></i> Dashboard</a>
-<a href="membri.html">Membri</a>
-<a href="uniforma.html">Uniformă</a>
-<a href="locatii.html">Locații</a>
+<a href="membri.html"><i class="fa fa-users"></i> Membri</a>
+<a href="uniforma.html"><i class="fa fa-shirt"></i> Uniformă</a>
+<a href="locatii.html"><i class="fa fa-location-dot"></i> Locații</a>
+<a href="infocraft.html"><i class="fa fa-info"></i> Info-Craft</a>
+<a href="craftarme.html"><i class="fa fa-hammer"></i> Craft Arme</a>
+<a href="taskuri.html"><i class="fa fa-list"></i> Task-uri</a>
+<a href="livrari.html"><i class="fa fa-truck"></i> Livrări</a>
+<a href="fonduri.html"><i class="fa fa-money-bill"></i> Fonduri</a>
+<a href="telefon.html"><i class="fa fa-phone"></i> Nr Tel</a>
+<a href="taxa.html"><i class="fa fa-coins"></i> Taxă</a>
+<a href="donatii.html"><i class="fa fa-hand-holding-dollar"></i> Donații</a>
 </div>
 
-<div class="main">
+<div class="main" id="main">
 
 <div class="hero">
 <img id="avatar" src="https://ui-avatars.com/api/?name=User">
 <div>
-<h2 id="welcome">Welcome back</h2>
-<small id="username">User</small>
+<h2 id="welcome">Loading...</h2>
+<small id="username">...</small>
 </div>
 </div>
 
@@ -86,8 +96,16 @@ border:2px solid #1a74ff;
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+import {
+getAuth,
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
+import {
+getDatabase,
+ref,
+get
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
 const firebaseConfig = {
 apiKey:"AIzaSyD...",
@@ -101,29 +119,42 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getDatabase();
 
-async function load(uid){
+let authReady = false;
+
+/* 🔥 IMPORTANT FIX */
+auth.authStateReady().then(() => {
+authReady = true;
+});
+
+/* LOAD PROFILE */
+async function loadProfile(uid){
 const snap = await get(ref(db,"users/"+uid));
 
 if(!snap.exists()) return;
 
 const d = snap.val();
 
-const avatar =
-d.avatar ||
-"https://ui-avatars.com/api/?name="+encodeURIComponent(d.discord || "User");
+const avatar = d.avatar
+|| "https://ui-avatars.com/api/?name="+encodeURIComponent(d.discord||"User");
 
 document.getElementById("avatar").src = avatar;
 document.getElementById("username").innerText = d.discord || "User";
 document.getElementById("welcome").innerText = "Welcome back " + (d.discord || "User");
 }
 
+/* AUTH SAFE */
 onAuthStateChanged(auth,(user)=>{
+
+if(!authReady) return;
+
 if(!user){
 window.location.href="index.html";
 return;
 }
 
-load(user.uid);
+document.getElementById("main").style.display="block";
+loadProfile(user.uid);
+
 });
 </script>
 
