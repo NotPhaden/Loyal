@@ -1,0 +1,359 @@
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task-uri - La Nueva Familia</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+:root{
+--text:#fff;
+}
+
+html,body{
+height:100%;
+overflow:hidden;
+}
+
+body{
+background:
+linear-gradient(rgba(7,7,12,.38), rgba(7,7,12,.68)),
+url("background.png") center/cover no-repeat fixed;
+color:var(--text);
+display:flex;
+}
+
+.sidebar{
+position:fixed;
+top:20px;
+left:20px;
+bottom:20px;
+width:285px;
+padding:28px 20px;
+border-radius:34px;
+background:rgba(10,10,18,.68);
+backdrop-filter:blur(22px);
+}
+
+.sidebar a{
+display:flex;
+align-items:center;
+gap:16px;
+padding:16px 18px;
+border-radius:18px;
+color:#9e9eab;
+text-decoration:none;
+margin-bottom:6px;
+}
+
+.sidebar a:hover{
+background:rgba(255,255,255,.04);
+color:white;
+}
+
+.main{
+margin-left:325px;
+padding:30px;
+width:100%;
+}
+
+.task-box{
+padding:25px;
+border-radius:30px;
+max-width:700px;
+background:rgba(255,255,255,.03);
+backdrop-filter:blur(10px);
+}
+
+.task-title{
+margin-bottom:20px;
+}
+
+.task-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+}
+
+.task-input{
+width:100%;
+height:52px;
+border:none;
+outline:none;
+border-radius:16px;
+padding:0 18px;
+color:white;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.05);
+}
+
+.task-input:focus{
+border-color:rgba(139,92,246,.4);
+}
+
+.task-btn{
+width:100%;
+height:54px;
+border:none;
+border-radius:18px;
+cursor:pointer;
+margin-top:15px;
+color:white;
+font-size:15px;
+font-weight:600;
+background:linear-gradient(135deg,#8b5cf6,#a855f7);
+}
+
+.members-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+margin-top:25px;
+}
+
+.member-card{
+padding:20px;
+text-align:center;
+border-radius:20px;
+background:rgba(255,255,255,.03);
+}
+
+.member-card img{
+width:80px;
+height:80px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.view-btn{
+margin-top:10px;
+padding:10px 14px;
+border:none;
+border-radius:12px;
+background:#8b5cf6;
+color:white;
+cursor:pointer;
+}
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.7);
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+.modal-box{
+width:700px;
+max-height:80vh;
+overflow:auto;
+padding:25px;
+border-radius:25px;
+background:#141420;
+}
+
+.close-btn{
+float:right;
+cursor:pointer;
+font-size:22px;
+}
+
+.task-history-card{
+padding:15px;
+margin-top:15px;
+border-radius:15px;
+background:rgba(255,255,255,.05);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<a href="index.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+<a href="membri.html"><i class="fa-solid fa-users"></i> Membri</a>
+<a href="uniforma.html"><i class="fa-solid fa-shirt"></i> Uniformă</a>
+<a href="locatii.html"><i class="fa-solid fa-location-dot"></i> Locații</a>
+<a href="infocraft.html"><i class="fa-solid fa-circle-info"></i> Info-Craft</a>
+<a href="craftarme.html"><i class="fa-solid fa-hammer"></i> Craft Arme</a>
+<a href="taskuri.html" class="active"><i class="fa-solid fa-list-check"></i> Task-uri</a>
+<a href="livrari.html"><i class="fa-solid fa-truck"></i> Livrări</a>
+<a href="fonduri.html"><i class="fa-solid fa-money-bill-wave"></i> Fonduri</a>
+<a href="telefon.html"><i class="fa-solid fa-phone"></i> Nr Tel</a>
+<a href="taxa.html"><i class="fa-solid fa-money-bill"></i> Taxă</a>
+</div>
+
+<div class="main">
+
+<div class="task-box">
+<h2 class="task-title">Task nou</h2>
+
+<div class="task-grid">
+
+<input id="taskName" class="task-input" placeholder="Ce task dai?">
+
+<select id="taskRole" class="task-input">
+<option value="">Cui i-ai dat task-ul</option>
+<option value="Lider">Lider</option>
+<option value="Co-Lider">Co-Lider</option>
+<option value="Coordonator">Coordonator</option>
+</select>
+
+<input id="taskDesc" class="task-input" placeholder="Dovadă (link)">
+
+</div>
+
+<button class="task-btn" onclick="addTask()">
+Trimite Task
+</button>
+
+</div>
+
+<h2 style="margin-top:30px;">Membri Task-uri</h2>
+<div class="members-grid" id="memberList"></div>
+
+</div>
+
+<div class="modal" id="modal">
+<div class="modal-box">
+<span class="close-btn" onclick="closeModal()">✕</span>
+<h2>Istoric Task-uri</h2>
+<div id="history"></div>
+</div>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getDatabase, ref, get, push, set } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyA_QTU32QGx14PpaGIwT_N-PFnFjL8UO_E",
+authDomain: "la-nueva-2f499.firebaseapp.com",
+projectId: "la-nueva-2f499",
+storageBucket: "la-nueva-2f499.appspot.com",
+messagingSenderId: "999957175996",
+appId: "1:999957175996:web:84c834a90bd3ced93dbab9"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+let currentUser;
+let currentUserData;
+
+async function getUser(uid){
+const snap = await get(ref(db,"users/"+uid));
+return snap.exists() ? snap.val() : null;
+}
+
+window.addTask = async function(){
+
+const name=document.getElementById("taskName").value.trim();
+const role=document.getElementById("taskRole").value;
+const desc=document.getElementById("taskDesc").value.trim();
+
+if(!name || !role || !desc){
+alert("Completează câmpurile!");
+return;
+}
+
+const taskRef = push(ref(db,"tasks"));
+
+await set(taskRef,{
+uid: currentUser.uid,
+discord: currentUserData.discord || "User",
+avatar: currentUserData.avatar || "https://cdn.discordapp.com/embed/avatars/0.png",
+name,
+role,
+desc,
+date: new Date().toLocaleString("ro-RO")
+});
+
+loadMembers();
+alert("Task trimis!");
+}
+
+async function loadMembers(){
+
+const snap = await get(ref(db,"tasks"));
+const box = document.getElementById("memberList");
+
+box.innerHTML = "";
+
+if(!snap.exists()) return;
+
+const tasks = Object.values(snap.val());
+
+const unique = [...new Map(tasks.map(t => [t.uid, t])).values()];
+
+unique.forEach(t=>{
+
+box.innerHTML += `
+<div class="member-card">
+<img src="${t.avatar}">
+<h3>${t.discord}</h3>
+<button class="view-btn" onclick="view('${t.uid}')">Task-uri</button>
+</div>`;
+});
+}
+
+window.view = async function(uid){
+
+const snap = await get(ref(db,"tasks"));
+
+document.getElementById("modal").style.display="flex";
+
+const h = document.getElementById("history");
+h.innerHTML="";
+
+if(!snap.exists()) return;
+
+Object.values(snap.val())
+.filter(t=>t.uid===uid)
+.reverse()
+.forEach(t=>{
+h.innerHTML += `
+<div class="task-history-card">
+<b>${t.name}</b><br>
+${t.role}<br>
+${t.desc}<br>
+${t.date}
+</div>`;
+});
+}
+
+window.closeModal = ()=> {
+document.getElementById("modal").style.display="none";
+}
+
+onAuthStateChanged(auth, async (user)=>{
+
+if(!user){
+window.location.href="index.html";
+return;
+}
+
+currentUser = user;
+currentUserData = await getUser(user.uid);
+
+loadMembers();
+});
+
+</script>
+
+</body>

@@ -1,0 +1,213 @@
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Craft Arme</title>
+
+<link rel="icon" type="image/png" href="logo.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:
+    linear-gradient(rgba(7,7,12,.55), rgba(7,7,12,.85)),
+    url("background.png") center/cover no-repeat fixed;
+    color:white;
+}
+
+.app{ display:flex; }
+
+.sidebar{
+    width:270px;
+    min-height:100vh;
+    padding:25px;
+    background:rgba(10,10,18,.75);
+    backdrop-filter:blur(20px);
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.logo h1{ font-size:22px; }
+.logo span{ font-size:12px; opacity:.7; }
+.logo p{ font-size:10px; opacity:.5; }
+
+.sidebar nav a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    margin:6px 0;
+    border-radius:12px;
+    color:#a1a1aa;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.sidebar nav a:hover{
+    background:rgba(255,255,255,.05);
+    color:white;
+}
+
+.sidebar nav a.active{
+    background:rgba(139,92,246,.25);
+    color:white;
+}
+
+.main{
+    flex:1;
+    padding:25px;
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:14px;
+}
+
+.card{
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:18px;
+    padding:14px;
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    background:rgba(255,255,255,.06);
+}
+
+.card img{
+    width:100%;
+    height:140px;
+    object-fit:cover;
+    border-radius:14px;
+    margin-bottom:10px;
+}
+
+.card h3{
+    font-size:15px;
+    margin-bottom:6px;
+}
+
+.item{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:#cfcfd6;
+    padding:3px 0;
+}
+
+.rarity{
+    display:inline-block;
+    margin-top:10px;
+    font-size:11px;
+    padding:4px 8px;
+    border-radius:8px;
+    background:rgba(139,92,246,.25);
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <h1>LA NUEVA
+FAMILIA</h1>
+        <span>MADE BY</span>
+        <p>NOTPHADE</p>
+    </div>
+
+    <nav>
+<a href="index.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+<a href="membri.html"><i class="fa-solid fa-users"></i> Membri</a>
+<a href="uniforma.html"><i class="fa-solid fa-shirt"></i> Uniformă</a>
+<a href="locatii.html"><i class="fa-solid fa-location-dot"></i> Locații</a>
+<a href="infocraft.html"><i class="fa-solid fa-circle-info"></i> Info-Craft</a>
+<a href="craftarme.html"><i class="fa-solid fa-hammer"></i> Craft Arme</a>
+<a href="taskuri.html"><i class="fa-solid fa-list-check"></i> Task-uri</a>
+<a href="livrari.html"><i class="fa-solid fa-truck"></i> Livrări</a>
+<a href="fonduri.html"><i class="fa-solid fa-money-bill-wave"></i> Fonduri</a>
+<a href="telefon.html"><i class="fa-solid fa-phone"></i> Nr Tel</a>
+<a href="taxa.html"><i class="fa-solid fa-money-bill"></i> Taxă</a>
+    </nav>
+
+</aside>
+
+<main class="main">
+
+<h1>🔫 Craft Arme</h1>
+
+<div class="grid">
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1602941525431-3c7a2b3d9b2c">
+
+        <h3>Pistol Basic</h3>
+
+        <div class="item"><span>• -</span><span>x2</span></div>
+        <div class="item"><span>• -</span><span>x1</span></div>
+
+        <span class="rarity">COMMON</span>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1610641818989-2c0b8a0c2a0f">
+
+        <h3>SMG Compact</h3>
+
+        <div class="item"><span>• -</span><span>x5</span></div>
+        <div class="item"><span>• -</span><span>x3</span></div>
+
+        <span class="rarity">UNCOMMON</span>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1612810436541-336d0f2f9d1a">
+
+        <h3>AK-47</h3>
+
+        <div class="item"><span>• -</span><span>x12</span></div>
+        <div class="item"><span>• -</span><span>x6</span></div>
+
+        <span class="rarity">RARE</span>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a0">
+
+        <h3>Ak-47</h3>
+
+        <div class="item"><span>• -</span><span>x20</span></div>
+        <div class="item"><span>• -</span><span>x10</span></div>
+
+        <span class="rarity">LEGENDARY</span>
+    </div>
+
+</div>
+
+</main>
+
+</div>
+
+</body>

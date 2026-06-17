@@ -1,0 +1,393 @@
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telefon - La Nueva Familia</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:
+linear-gradient(rgba(7,7,12,.55), rgba(7,7,12,.75)),
+url("background.png") center/cover no-repeat fixed;
+color:white;
+display:flex;
+height:100vh;
+overflow:hidden;
+}
+
+.sidebar{
+position:fixed;
+top:20px;
+left:20px;
+bottom:20px;
+width:285px;
+padding:28px 20px;
+border-radius:34px;
+background:rgba(10,10,18,.68);
+backdrop-filter:blur(22px);
+}
+
+.sidebar a{
+display:flex;
+align-items:center;
+gap:14px;
+padding:14px 16px;
+border-radius:14px;
+color:#aaa;
+text-decoration:none;
+margin-bottom:6px;
+}
+
+.sidebar a:hover{
+background:rgba(255,255,255,.05);
+color:white;
+}
+
+.main{
+margin-left:325px;
+padding:30px;
+width:100%;
+overflow:auto;
+}
+
+.box{
+padding:25px;
+border-radius:25px;
+background:rgba(255,255,255,0.03);
+backdrop-filter:blur(10px);
+max-width:750px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.input{
+width:100%;
+height:50px;
+border:none;
+outline:none;
+border-radius:14px;
+padding:0 15px;
+background:rgba(255,255,255,0.05);
+color:white;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+input[type="file"]{
+padding:12px;
+height:auto;
+}
+
+.btn{
+width:100%;
+margin-top:12px;
+padding:14px;
+border:none;
+border-radius:14px;
+background:linear-gradient(135deg,#8b5cf6,#a855f7);
+color:white;
+font-weight:600;
+cursor:pointer;
+}
+
+.members-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+gap:15px;
+margin-top:25px;
+}
+
+.member-card{
+padding:20px;
+border-radius:18px;
+background:rgba(255,255,255,0.05);
+text-align:center;
+transition:.3s;
+}
+
+.member-card:hover{
+transform:translateY(-5px);
+background:rgba(139,92,246,0.08);
+}
+
+.member-avatar{
+width:80px;
+height:80px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid #8b5cf6;
+}
+
+.view-btn{
+margin-top:12px;
+border:none;
+padding:12px 18px;
+border-radius:14px;
+cursor:pointer;
+color:white;
+font-weight:600;
+background:linear-gradient(135deg,#8b5cf6,#a855f7);
+}
+
+.popup-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.55);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:999;
+backdrop-filter:blur(8px);
+}
+
+.popup-box{
+width:850px;
+max-width:95%;
+max-height:90vh;
+padding:35px;
+border-radius:28px;
+background:rgba(18,18,28,0.45);
+backdrop-filter:blur(22px);
+border:1px solid rgba(255,255,255,0.08);
+overflow-y:auto;
+text-align:center;
+}
+
+.popup-avatar{
+width:90px;
+height:90px;
+border-radius:50%;
+object-fit:cover;
+margin-bottom:10px;
+}
+
+.card{
+padding:15px;
+margin-top:10px;
+border-radius:14px;
+background:rgba(255,255,255,0.05);
+text-align:left;
+}
+
+.card img{
+width:100%;
+margin-top:10px;
+border-radius:12px;
+}
+
+.close-btn{
+margin-top:15px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:14px;
+background:#ef4444;
+color:white;
+cursor:pointer;
+font-weight:600;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<a href="index.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+<a href="membri.html"><i class="fa-solid fa-users"></i> Membri</a>
+<a href="uniforma.html"><i class="fa-solid fa-shirt"></i> Uniformă</a>
+<a href="locatii.html"><i class="fa-solid fa-location-dot"></i> Locații</a>
+<a href="infocraft.html"><i class="fa-solid fa-circle-info"></i> Info-Craft</a>
+<a href="craftarme.html"><i class="fa-solid fa-hammer"></i> Craft Arme</a>
+<a href="taskuri.html"><i class="fa-solid fa-list-check"></i> Task-uri</a>
+<a href="livrari.html"><i class="fa-solid fa-truck"></i> Livrări</a>
+<a href="fonduri.html"><i class="fa-solid fa-money-bill-wave"></i> Fonduri</a>
+<a href="telefon.html"><i class="fa-solid fa-phone"></i> Nr Tel</a>
+<a href="taxa.html"><i class="fa-solid fa-money-bill"></i> Taxă</a>
+</div>
+
+<div class="main">
+
+<div class="box">
+<h2>Număr nou</h2>
+
+<div class="grid">
+
+<input id="phone" class="input" placeholder="Număr de telefon">
+
+<input id="iban" class="input" placeholder="IBAN">
+
+<input id="proof" class="input" placeholder="Link dovadă (opțional)">
+
+<input id="image" type="file" class="input" accept="image/*">
+
+</div>
+
+<button class="btn" onclick="addPhone()">Trimite</button>
+</div>
+
+<h2 style="margin-top:25px;">Numere salvate</h2>
+<div class="members-grid" id="memberList"></div>
+
+</div>
+
+<div class="popup-overlay" id="popup">
+<div class="popup-box">
+
+<img id="popupAvatar" class="popup-avatar">
+<h2 id="popupName"></h2>
+
+<div id="history"></div>
+
+<button class="close-btn" onclick="closePopup()">Închide</button>
+
+</div>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getDatabase, ref, get, push, set } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyA_QTU32QGx14PpaGIwT_N-PFnFjL8UO_E",
+authDomain: "la-nueva-2f499.firebaseapp.com",
+projectId: "la-nueva-2f499",
+storageBucket: "la-nueva-2f499.appspot.com",
+messagingSenderId: "999957175996",
+appId: "1:999957175996:web:84c834a90bd3ced93dbab9"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+let currentUser;
+let currentUserData;
+
+async function getUser(uid){
+const snap = await get(ref(db,"users/"+uid));
+return snap.exists() ? snap.val() : null;
+}
+
+function toBase64(file){
+return new Promise((res,rej)=>{
+const r = new FileReader();
+r.readAsDataURL(file);
+r.onload=()=>res(r.result);
+r.onerror=rej;
+});
+}
+
+window.addPhone = async function(){
+
+const phone = document.getElementById("phone").value.trim();
+const iban = document.getElementById("iban").value.trim();
+const proof = document.getElementById("proof").value.trim();
+const file = document.getElementById("image").files[0];
+
+if(!phone || !iban){
+alert("Completează câmpurile!");
+return;
+}
+
+let img = "";
+if(file) img = await toBase64(file);
+
+await set(push(ref(db,"telefon")),{
+uid: currentUser.uid,
+discord: currentUserData.discord || "User",
+avatar: currentUserData.avatar || "https://cdn.discordapp.com/embed/avatars/0.png",
+phone,
+iban,
+proof: proof || "Fără dovadă",
+image: img || "",
+date: new Date().toLocaleString("ro-RO")
+});
+
+load();
+}
+
+async function load(){
+
+const snap = await get(ref(db,"telefon"));
+const box = document.getElementById("memberList");
+box.innerHTML = "";
+
+if(!snap.exists()) return;
+
+const items = Object.values(snap.val());
+const unique = [...new Map(items.map(t => [t.uid,t])).values()];
+
+unique.forEach(t=>{
+box.innerHTML += `
+<div class="member-card">
+<img class="member-avatar" src="${t.avatar}">
+<h3>${t.discord}</h3>
+<button class="view-btn" onclick="view('${t.uid}')">Vezi</button>
+</div>`;
+});
+}
+
+window.view = async function(uid){
+
+const snap = await get(ref(db,"telefon"));
+const data = Object.values(snap.val() || {})
+.filter(t => t.uid === uid)
+.reverse();
+
+document.getElementById("popup").style.display="flex";
+
+const box = document.getElementById("history");
+box.innerHTML = "";
+
+if(data.length === 0) return;
+
+document.getElementById("popupAvatar").src = data[0].avatar;
+document.getElementById("popupName").innerText = data[0].discord;
+
+data.forEach(t=>{
+box.innerHTML += `
+<div class="card">
+<b>📞 ${t.phone}</b><br>
+🏦 IBAN: ${t.iban}<br>
+🔗 Dovadă: ${t.proof}<br>
+📅 ${t.date}
+${t.image ? `<img src="${t.image}">` : ""}
+</div>
+`;
+});
+}
+
+window.closePopup = () => {
+document.getElementById("popup").style.display="none";
+};
+
+onAuthStateChanged(auth, async (u)=>{
+
+if(!u) location.href="index.html";
+
+currentUser = u;
+currentUserData = await getUser(u.uid);
+
+load();
+});
+
+</script>
+
+</body>

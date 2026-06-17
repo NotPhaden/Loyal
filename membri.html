@@ -1,0 +1,177 @@
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Membri - FiveM</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+    linear-gradient(rgba(7,7,12,.55), rgba(7,7,12,.80)),
+    url("background.png") center/cover no-repeat fixed;
+    color:#fff;
+}
+
+.sidebar{
+    position:fixed;
+    top:20px;
+    left:20px;
+    bottom:20px;
+    width:285px;
+    padding:28px 20px;
+    border-radius:34px;
+    background:rgba(10,10,18,.68);
+    backdrop-filter:blur(22px);
+    border:1px solid rgba(255,255,255,.05);
+}
+
+.sidebar a{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 18px;
+    border-radius:18px;
+    color:#9e9eab;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,.04);
+    color:white;
+}
+
+.sidebar a.active{
+    background:rgba(139,92,246,.25);
+    color:white;
+}
+
+.content{
+    margin-left:325px;
+    padding:30px;
+}
+
+.title{
+    font-size:22px;
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+.users-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+    gap:16px;
+}
+
+.user-card{
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:18px;
+    padding:14px;
+    text-align:center;
+    transition:.2s;
+    backdrop-filter:blur(10px);
+}
+
+.user-card:hover{
+    transform:translateY(-4px);
+    background:rgba(255,255,255,.05);
+}
+
+.user-card img{
+    width:60px;
+    height:60px;
+    border-radius:16px;
+    object-fit:cover;
+    margin-bottom:10px;
+    border:2px solid rgba(139,92,246,.25);
+}
+
+.user-card h3{
+    font-size:14px;
+    font-weight:500;
+}
+
+.loading{
+    opacity:.7;
+    font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<a href="index.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+<a href="membri.html"><i class="fa-solid fa-users"></i> Membri</a>
+<a href="uniforma.html"><i class="fa-solid fa-shirt"></i> Uniformă</a>
+<a href="locatii.html"><i class="fa-solid fa-location-dot"></i> Locații</a>
+<a href="infocraft.html"><i class="fa-solid fa-circle-info"></i> Info-Craft</a>
+<a href="craftarme.html"><i class="fa-solid fa-hammer"></i> Craft Arme</a>
+<a href="taskuri.html"><i class="fa-solid fa-list-check"></i> Task-uri</a>
+<a href="livrari.html"><i class="fa-solid fa-truck"></i> Livrări</a>
+<a href="fonduri.html"><i class="fa-solid fa-money-bill-wave"></i> Fonduri</a>
+<a href="telefon.html"><i class="fa-solid fa-phone"></i> Nr Tel</a>
+<a href="taxa.html"><i class="fa-solid fa-money-bill"></i> Taxă</a>
+</div>
+
+<div class="content">
+    <div class="title">👥 Membri server</div>
+
+    <div class="users-grid" id="usersGrid">
+        <div class="loading">Se încarcă membrii...</div>
+    </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA_QTU32QGx14PpaGIwT_T-PFnFjL8UO_E",
+  authDomain: "la-nueva-2f499.firebaseapp.com",
+  projectId: "la-nueva-2f499",
+  storageBucket: "la-nueva-2f499.appspot.com",
+  messagingSenderId: "999957175996",
+  appId: "1:999957175996:web:84c834a90bd3ced93dbab9",
+  measurementId: "G-6728MK75NJ"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase();
+
+async function loadMembers(){
+    const snap = await get(ref(db, "users"));
+    const grid = document.getElementById("usersGrid");
+
+    if(!snap.exists()){
+        grid.innerHTML = "<div class='loading'>Nu există membri</div>";
+        return;
+    }
+
+    const users = Object.values(snap.val());
+
+    grid.innerHTML = users.map(u => `
+        <div class="user-card">
+            <img src="${u.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}">
+            <h3>${u.discord || "Fără nume"}</h3>
+        </div>
+    `).join("");
+}
+
+loadMembers();
+</script>
+
+</body>

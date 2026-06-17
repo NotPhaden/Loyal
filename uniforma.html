@@ -1,0 +1,186 @@
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uniformă</title>
+
+<link rel="icon" type="image/png" href="logo.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:
+    linear-gradient(rgba(7,7,12,.55), rgba(7,7,12,.85)),
+    url("background.png") center/cover no-repeat fixed;
+    color:white;
+}
+
+.app{ display:flex; }
+
+.sidebar{
+    width:270px;
+    min-height:100vh;
+    padding:25px;
+    background:rgba(10,10,18,.75);
+    backdrop-filter:blur(20px);
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.logo h1{ font-size:22px; }
+.logo span{ font-size:12px; opacity:.7; }
+.logo p{ font-size:10px; opacity:.5; }
+
+.sidebar nav a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    margin:6px 0;
+    border-radius:12px;
+    color:#a1a1aa;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.sidebar nav a:hover{
+    background:rgba(255,255,255,.05);
+    color:white;
+}
+
+.sidebar nav a.active{
+    background:rgba(139,92,246,.25);
+    color:white;
+}
+
+.main{
+    flex:1;
+    padding:25px;
+}
+
+.members-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+    gap:14px;
+}
+
+.member-card{
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:18px;
+    padding:12px;
+    transition:.2s;
+}
+
+.member-card:hover{
+    transform:translateY(-3px);
+    background:rgba(255,255,255,.06);
+}
+
+.member-avatar{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    border-radius:14px;
+}
+
+.member-card h2{
+    margin-top:10px;
+    font-size:15px;
+}
+
+.member-rank{
+    display:inline-block;
+    margin-top:6px;
+    padding:4px 8px;
+    border-radius:8px;
+    font-size:11px;
+    background:rgba(139,92,246,.25);
+}
+
+.member-card p{
+    margin-top:10px;
+    font-size:12px;
+    color:#cfcfd6;
+    line-height:1.5;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <h1>LA NUEVA
+FAMILIA</h1>
+        <span>MADE BY</span>
+        <p>NOTPHADE</p>
+    </div>
+
+    <nav>
+<a href="index.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+<a href="membri.html"><i class="fa-solid fa-users"></i> Membri</a>
+<a href="uniforma.html"><i class="fa-solid fa-shirt"></i> Uniformă</a>
+<a href="locatii.html"><i class="fa-solid fa-location-dot"></i> Locații</a>
+<a href="infocraft.html"><i class="fa-solid fa-circle-info"></i> Info-Craft</a>
+<a href="craftarme.html"><i class="fa-solid fa-hammer"></i> Craft Arme</a>
+<a href="taskuri.html"><i class="fa-solid fa-list-check"></i> Task-uri</a>
+<a href="livrari.html"><i class="fa-solid fa-truck"></i> Livrări</a>
+<a href="fonduri.html"><i class="fa-solid fa-money-bill-wave"></i> Fonduri</a>
+<a href="telefon.html"><i class="fa-solid fa-phone"></i> Nr Tel</a>
+<a href="taxa.html"><i class="fa-solid fa-money-bill"></i> Taxă</a>
+    </nav>
+
+</aside>
+
+<main class="main">
+
+    <h1 style="margin-bottom:20px;">Uniformele Serverului</h1>
+
+    <div class="members-grid">
+
+        <div class="member-card">
+            <img class="member-avatar" src="https://i.pinimg.com/236x/64/c2/7c/64c27ca649a675f4e6c5570bd00d74ec.jpg">
+            <h2>• -</h2>
+            <div class="member-rank">OBLIGATORIE</div>
+            <p>• -<br>• -<br>• -</p>
+        </div>
+
+        <div class="member-card">
+            <img class="member-avatar" src="https://i.pinimg.com/236x/1c/e3/ac/1ce3ac924ac751f0dd8ed474995b1768.jpg">
+            <h2>• -</h2>
+            <div class="member-rank">CAYO</div>
+            <p>• -<br>• -<br>• -</p>
+        </div>
+
+        <div class="member-card">
+            <img class="member-avatar" src="https://i.pinimg.com/236x/8a/9c/xx.jpg">
+            <h2>• -</h2>
+            <div class="member-rank">DEFAULT</div>
+            <p>• -<br>• -<br>• -</p>
+        </div>
+
+    </div>
+
+</main>
+
+</div>
+
+</body>
