@@ -1,151 +1,309 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Loyal RolePlay - Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FiveM Dashboard</title>
 
-<link rel="icon" href="logo.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-body{
-margin:0;
-font-family:Poppins,sans-serif;
-background:radial-gradient(circle,#1c2238,#0e1324);
-color:white;
-overflow:hidden;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
+
+:root{
+    --text:#ffffff;
+    --muted:#a1a1aa;
+    --purple:#8b5cf6;
+    --purple2:#a855f7;
+    --glass:rgba(16,16,24,.58);
+    --border:rgba(255,255,255,.06);
+    --shadow:0 20px 45px rgba(0,0,0,.30);
+}
+
+html,body{
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    background:
+    linear-gradient(rgba(7,7,12,.38), rgba(7,7,12,.68)),
+    url("background.png") center/cover no-repeat fixed;
+    color:var(--text);
+}
+
+.hidden{display:none !important;}
 
 /* SIDEBAR */
 .sidebar{
-position:fixed;
-left:0;top:0;
-width:260px;height:100%;
-background:#1f2a41;
-padding:20px;
+    position:fixed;
+    top:20px;
+    left:20px;
+    bottom:20px;
+    width:285px;
+    padding:28px 20px;
+    border-radius:34px;
+    background:rgba(10,10,18,.68);
+    backdrop-filter:blur(22px);
+    border:1px solid rgba(255,255,255,.05);
 }
 
 .sidebar a{
-display:flex;
-gap:10px;
-padding:12px;
-color:#c4c9d6;
-text-decoration:none;
-border-radius:8px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 18px;
+    border-radius:18px;
+    color:#9e9eab;
+    text-decoration:none;
+    transition:.25s;
 }
 
 .sidebar a:hover{
-background:rgba(255,255,255,0.05);
+    background:rgba(255,255,255,.04);
+    color:white;
 }
 
-/* MAIN */
-.main{
-margin-left:280px;
-padding:30px;
-display:none;
+.sidebar a.active{
+    background:linear-gradient(135deg, rgba(139,92,246,.22), rgba(168,85,247,.10));
+    border:1px solid rgba(139,92,246,.20);
+    color:white;
 }
 
-/* HERO */
-.hero{
-display:flex;
-gap:15px;
-align-items:center;
-padding:20px;
-background:rgba(255,255,255,0.03);
-border-radius:15px;
+/* TOPBAR */
+.topbar{
+    margin-left:325px;
+    height:80px;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    padding:0 30px;
 }
 
-.hero img{
-width:80px;
-height:80px;
-border-radius:50%;
-object-fit:cover;
-border:2px solid #1a74ff;
+.profile{
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+    gap:10px;
+}
+
+.profile img{
+    width:45px;
+    height:45px;
+    border-radius:14px;
+    border:2px solid rgba(139,92,246,.20);
+}
+
+/* CONTENT */
+.content{
+    margin-left:325px;
+    padding:30px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
+
+.card{
+    padding:24px;
+    border-radius:30px;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.04);
+}
+
+.card h3{
+    margin-bottom:10px;
+    color:#ddc4ff;
+}
+
+/* POPUP */
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.box{
+    width:340px;
+    padding:25px;
+    border-radius:25px;
+    background:rgba(16,16,24,.9);
+}
+
+.box input{
+    width:100%;
+    height:50px;
+    margin:8px 0;
+    border-radius:12px;
+    border:none;
+    padding:0 12px;
+    background:rgba(255,255,255,.05);
+    color:white;
+}
+
+button{
+    width:100%;
+    height:50px;
+    margin-top:10px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    color:white;
+    font-weight:600;
+    background:linear-gradient(135deg,var(--purple),var(--purple2));
 }
 </style>
 </head>
 
 <body>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
-<h2>Loyal RP</h2>
-
-<a href="dashboard.html"><i class="fa fa-house"></i> Dashboard</a>
-<a href="membri.html"><i class="fa fa-users"></i> Membri</a>
-<a href="uniforma.html"><i class="fa fa-shirt"></i> Uniformă</a>
-<a href="locatii.html"><i class="fa fa-location-dot"></i> Locații</a>
-<a href="infocraft.html"><i class="fa fa-info"></i> Info-Craft</a>
-<a href="craftarme.html"><i class="fa fa-hammer"></i> Craft Arme</a>
-<a href="taskuri.html"><i class="fa fa-list"></i> Task-uri</a>
-<a href="livrari.html"><i class="fa fa-truck"></i> Livrări</a>
-<a href="fonduri.html"><i class="fa fa-money-bill"></i> Fonduri</a>
-<a href="telefon.html"><i class="fa fa-phone"></i> Nr Tel</a>
-<a href="taxa.html"><i class="fa fa-coins"></i> Taxă</a>
-<a href="donatii.html"><i class="fa fa-hand-holding-dollar"></i> Donații</a>
+                <a class="active" href="index.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="membri.html"><i class="fa-solid fa-users"></i> Membri</a>
+                <a href="uniforma.html"><i class="fa-solid fa-shirt"></i> Uniformă</a>
+                <a href="locatii.html"><i class="fa-solid fa-location-dot"></i> Locații</a>
+                <a href="infocraft.html"><i class="fa-solid fa-circle-info"></i> Info-Craft</a>
+                <a href="craftarme.html"><i class="fa-solid fa-hammer"></i> Craft Arme</a>
+                <a href="taskuri.html"><i class="fa-solid fa-list-check"></i> Task-uri</a>
+                <a href="livrari.html"><i class="fa-solid fa-truck"></i> Livrări</a>
+                <a href="fonduri.html"><i class="fa-solid fa-money-bill-wave"></i> Fonduri</a>
+                <a href="telefon.html"><i class="fa-solid fa-phone"></i> Nr Tel</a>
+                <a href="taxa.html"><i class="fa-solid fa-money-bill"></i> Taxă</a>
+                <a href="donatii.html"><i class="fa-solid fa-hand-holding-dollar"></i> Donații</a>
 </div>
 
-<div class="main" id="main">
-
-<div class="hero">
-<img id="avatar" src="https://ui-avatars.com/api/?name=User">
-<div>
-<h2 id="welcome">Loading...</h2>
-<small id="username">...</small>
-</div>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="profile" id="profileBtn">
+    <img id="avatar" src="">
+    <span id="name">User</span>
+  </div>
 </div>
 
+<!-- CONTENT -->
+<div class="content">
+  <h2>Bun venit în Dashboard 👋</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>📊 Statistici</h3>
+      <p>Server sincronizat cu Firebase.</p>
+    </div>
+
+    <div class="card">
+      <h3>🚗 Activitate</h3>
+      <p>Task-uri și livrări live.</p>
+    </div>
+
+    <div class="card">
+      <h3>💰 Economie</h3>
+      <p>Fonduri facțiune.</p>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP -->
+<div class="popup hidden" id="profilePopup">
+  <div class="box">
+    <h3>Profil</h3>
+    <input id="discord" placeholder="Discord Name">
+    <input id="avatarURL" placeholder="Avatar URL">
+    <button id="save">Salvează</button>
+    <button id="logout">Logout</button>
+  </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
 const firebaseConfig = {
-apiKey:"AIzaSyD...",
-authDomain:"PHXp-7ad68.firebaseapp.com",
-databaseURL:"https://PHXp-7ad68-default-rtdb.firebaseio.com",
-projectId:"PHXp-7ad68",
-appId:"1:9584..."
+  apiKey: "AIzaSyDuwtx8gFcD4nVPPR1Ej0qGZSDqskVrj48",
+  authDomain: "PHXp-7ad68.firebaseapp.com",
+  databaseURL: "https://PHXp-7ad68-default-rtdb.firebaseio.com",
+  projectId: "PHXp-7ad68",
+  storageBucket: "PHXp-7ad68.appspot.com",
+  messagingSenderId: "958464426444",
+  appId: "1:958464426444:web:4ddef0be7bf73a7f471d69",
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getDatabase();
 
-const main = document.getElementById("main");
+const avatar = document.getElementById("avatar");
+const name = document.getElementById("name");
+
+const popup = document.getElementById("profilePopup");
+const btn = document.getElementById("profileBtn");
+
+let currentUID = null;
 
 /* LOAD USER */
-async function loadProfile(uid){
-const snap = await get(ref(db,"users/"+uid));
+async function loadUser(uid){
+  const snap = await get(ref(db, "users/" + uid));
+  if(snap.exists()){
+    const data = snap.val();
 
-if(!snap.exists()) return;
+    name.textContent = data.discord || "User";
+    avatar.src = data.avatar || "https://cdn.discordapp.com/embed/avatars/0.png";
 
-const d = snap.val();
-
-const avatar =
-d.avatar ||
-"https://ui-avatars.com/api/?name=" + encodeURIComponent(d.discord || "User");
-
-document.getElementById("avatar").src = avatar;
-document.getElementById("username").innerText = d.discord || "User";
-document.getElementById("welcome").innerText = "Welcome back, " + (d.discord || "User");
+    document.getElementById("discord").value = data.discord || "";
+    document.getElementById("avatarURL").value = data.avatar || "";
+  }
 }
 
-/* FIX AUTH FLOW (NO LOOP) */
-onAuthStateChanged(auth, async (user) => {
+/* AUTH CHECK */
+onAuthStateChanged(auth, (user) => {
+  if(!user){
+    window.location.href = "index.html";
+    return;
+  }
 
-if(!user){
-window.location.href = "index.html";
-return;
-}
-
-main.style.display = "block";
-await loadProfile(user.uid);
-
+  currentUID = user.uid;
+  loadUser(user.uid);
 });
 
+/* OPEN POPUP */
+btn.onclick = () => {
+  popup.classList.toggle("hidden");
+};
+
+/* SAVE */
+document.getElementById("save").onclick = async () => {
+  if(!currentUID) return;
+
+  const discord = document.getElementById("discord").value;
+  const avatarURL = document.getElementById("avatarURL").value;
+
+  await update(ref(db, "users/" + currentUID), {
+    discord,
+    avatar: avatarURL
+  });
+
+  loadUser(currentUID);
+  popup.classList.add("hidden");
+};
+
+/* LOGOUT */
+document.getElementById("logout").onclick = async () => {
+  await signOut(auth);
+  window.location.href = "index.html";
+};
 </script>
 
 </body>
