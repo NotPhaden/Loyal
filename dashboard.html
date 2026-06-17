@@ -35,7 +35,9 @@ text-decoration:none;
 border-radius:8px;
 }
 
-.sidebar a:hover{background:rgba(255,255,255,0.05);}
+.sidebar a:hover{
+background:rgba(255,255,255,0.05);
+}
 
 /* MAIN */
 .main{
@@ -55,7 +57,8 @@ border-radius:15px;
 }
 
 .hero img{
-width:80px;height:80px;
+width:80px;
+height:80px;
 border-radius:50%;
 object-fit:cover;
 border:2px solid #1a74ff;
@@ -96,16 +99,8 @@ border:2px solid #1a74ff;
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import {
-getAuth,
-onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-
-import {
-getDatabase,
-ref,
-get
-} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
 const firebaseConfig = {
 apiKey:"AIzaSyD...",
@@ -119,12 +114,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getDatabase();
 
-let authReady = false;
-
-/* 🔥 IMPORTANT FIX */
-auth.authStateReady().then(() => {
-authReady = true;
-});
+const main = document.getElementById("main");
 
 /* LOAD PROFILE */
 async function loadProfile(uid){
@@ -134,28 +124,27 @@ if(!snap.exists()) return;
 
 const d = snap.val();
 
-const avatar = d.avatar
-|| "https://ui-avatars.com/api/?name="+encodeURIComponent(d.discord||"User");
+const avatar =
+d.avatar ||
+"https://ui-avatars.com/api/?name=" + encodeURIComponent(d.discord || "User");
 
 document.getElementById("avatar").src = avatar;
 document.getElementById("username").innerText = d.discord || "User";
-document.getElementById("welcome").innerText = "Welcome back " + (d.discord || "User");
+document.getElementById("welcome").innerText = "Welcome back, " + (d.discord || "User");
 }
 
-/* AUTH SAFE */
-onAuthStateChanged(auth,(user)=>{
+/* AUTH FIX (NO REDIRECT BUG) */
+onAuthStateChanged(auth, async (user) => {
 
-if(!authReady) return;
-
-if(!user){
-window.location.href="index.html";
-return;
+if(user){
+main.style.display = "block";
+await loadProfile(user.uid);
+} else {
+window.location.href = "index.html";
 }
-
-document.getElementById("main").style.display="block";
-loadProfile(user.uid);
 
 });
+
 </script>
 
 </body>
