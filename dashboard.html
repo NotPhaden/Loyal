@@ -3,170 +3,93 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Loyal RolePlay</title>
+<title>Loyal RolePlay - Dashboard</title>
 
 <link rel="icon" href="logo.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-
 body{
-height:100vh;
-overflow:hidden;
-background:linear-gradient(rgba(7,7,12,.4),rgba(7,7,12,.7)),url("background.png") center/cover fixed;
+margin:0;
+font-family:Poppins,sans-serif;
+background:radial-gradient(circle,#1c2238,#0e1324);
 color:white;
+overflow:hidden;
 }
 
-/* LOADING */
-#loadingScreen{
-position:fixed;inset:0;
-display:flex;align-items:center;justify-content:center;
-background:#0e1324;
-z-index:99999;
-font-size:22px;
-font-weight:700;
-}
-
-/* SIDEBAR */
 .sidebar{
 position:fixed;
-top:20px;left:20px;bottom:20px;
-width:285px;
-padding:25px;
-border-radius:30px;
-background:rgba(10,10,18,.7);
-backdrop-filter:blur(22px);
-overflow-y:auto;
+left:0;top:0;
+width:220px;height:100%;
+background:#1f2a41;
+padding:20px;
 }
 
-nav{display:flex;flex-direction:column;gap:8px;}
-
-nav a{
-padding:14px;
-border-radius:14px;
-color:#aaa;
+.sidebar a{
+display:block;
+padding:12px;
+color:#c4c9d6;
 text-decoration:none;
-display:flex;
-gap:12px;
+border-radius:8px;
 }
 
-nav a:hover{background:rgba(255,255,255,.05);color:white;}
+.sidebar a:hover{background:rgba(255,255,255,0.05);}
 
-/* MAIN */
 .main{
-margin-left:325px;
+margin-left:240px;
 padding:30px;
 }
 
-/* HERO */
 .hero{
 display:flex;
-gap:20px;
 align-items:center;
-padding:25px;
-border-radius:25px;
-background:rgba(255,255,255,.03);
+gap:15px;
+padding:20px;
+background:rgba(255,255,255,0.03);
+border-radius:15px;
 }
 
 .hero img{
-width:90px;height:90px;
-border-radius:22px;
-object-fit:cover;
-}
-
-/* NOTIF */
-#bellBtn{
-position:fixed;
-top:25px;
-left:330px;
-font-size:22px;
-cursor:pointer;
-}
-
-#notifBox{
-position:fixed;
-top:60px;
-left:330px;
-width:260px;
-background:#111;
-padding:10px;
-border-radius:12px;
-display:none;
-}
-
-/* PROFILE */
-.profile{
-position:fixed;
-top:20px;
-right:20px;
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.profile img{
-width:50px;height:50px;
+width:80px;height:80px;
 border-radius:50%;
 object-fit:cover;
+border:2px solid #1a74ff;
 }
+
+.stats{display:none;} /* SCOASE COMPLET */
+
 </style>
 </head>
 
 <body>
 
-<div id="loadingScreen">Loading...</div>
-
-<!-- SIDEBAR -->
 <div class="sidebar">
-<nav>
-<a href="index.html"><i class="fa-solid fa-house"></i> Dashboard</a>
-<a href="membri.html"><i class="fa-solid fa-users"></i> Membri</a>
-<a href="uniforma.html"><i class="fa-solid fa-shirt"></i> Uniformă</a>
-<a href="locatii.html"><i class="fa-solid fa-location-dot"></i> Locații</a>
-<a href="infocraft.html"><i class="fa-solid fa-circle-info"></i> Info-Craft</a>
-<a href="craftarme.html"><i class="fa-solid fa-hammer"></i> Craft Arme</a>
-<a href="taskuri.html"><i class="fa-solid fa-list-check"></i> Task-uri</a>
-<a href="livrari.html"><i class="fa-solid fa-truck"></i> Livrări</a>
-<a href="fonduri.html"><i class="fa-solid fa-money-bill"></i> Fonduri</a>
-<a href="telefon.html"><i class="fa-solid fa-phone"></i> Nr Tel</a>
-<a href="taxa.html"><i class="fa-solid fa-money-bill-wave"></i> Taxă</a>
-<a href="donatii.html"><i class="fa-solid fa-hand-holding-dollar"></i> Donații</a>
-</nav>
+<h2>Loyal RP</h2>
+
+<a href="dashboard.html"><i class="fa fa-house"></i> Dashboard</a>
+<a href="membri.html">Membri</a>
+<a href="uniforma.html">Uniformă</a>
+<a href="locatii.html">Locații</a>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
 <div class="hero">
-<img id="profileAvatar" src="https://ui-avatars.com/api/?name=User">
+<img id="avatar" src="https://ui-avatars.com/api/?name=User">
 <div>
-<h2 id="welcomeText">Welcome back</h2>
-<small id="userName">Loyal RolePlay</small>
+<h2 id="welcome">Welcome back</h2>
+<small id="username">User</small>
 </div>
 </div>
 
 </div>
 
-<!-- NOTIF -->
-<div id="bellBtn">🔔</div>
-<div id="notifBox"></div>
-
-<!-- PROFILE -->
-<div class="profile">
-<img id="profileAvatarSmall">
-<span id="profileNameSmall"></span>
-</div>
-
-<!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-import { getDatabase,ref,get } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
-const firebaseConfig={
+const firebaseConfig = {
 apiKey:"AIzaSyD...",
 authDomain:"PHXp-7ad68.firebaseapp.com",
 databaseURL:"https://PHXp-7ad68-default-rtdb.firebaseio.com",
@@ -174,65 +97,34 @@ projectId:"PHXp-7ad68",
 appId:"1:9584..."
 };
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth();
-const db=getDatabase();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getDatabase();
 
-const loading=document.getElementById("loadingScreen");
-
-setTimeout(()=>loading.style.display="none",1200);
-
-/* 🔥 FIX USER LOAD */
-async function loadProfile(uid){
-
+async function load(uid){
 const snap = await get(ref(db,"users/"+uid));
+
 if(!snap.exists()) return;
 
 const d = snap.val();
 
-/* 🔥 FIX AVATAR SAFE */
-let avatar = d.avatar;
+const avatar =
+d.avatar ||
+"https://ui-avatars.com/api/?name="+encodeURIComponent(d.discord || "User");
 
-if(!avatar || avatar === "" || avatar === "undefined"){
-avatar = "https://ui-avatars.com/api/?name=" + encodeURIComponent(d.discord || "User");
+document.getElementById("avatar").src = avatar;
+document.getElementById("username").innerText = d.discord || "User";
+document.getElementById("welcome").innerText = "Welcome back " + (d.discord || "User");
 }
 
-const name = d.discord || "User";
-
-/* HERO */
-document.getElementById("profileAvatar").src = avatar;
-document.getElementById("welcomeText").innerText = "Welcome back, " + name;
-document.getElementById("userName").innerText = name;
-
-/* TOP BAR */
-document.getElementById("profileAvatarSmall").src = avatar;
-document.getElementById("profileNameSmall").innerText = name;
-}
-
-/* AUTH */
-onAuthStateChanged(auth, async (user)=>{
-
-loading.style.display="none";
-
-if(user){
-await loadProfile(user.uid);
-}else{
+onAuthStateChanged(auth,(user)=>{
+if(!user){
 window.location.href="index.html";
+return;
 }
 
+load(user.uid);
 });
-
-/* NOTIF */
-const bell=document.getElementById("bellBtn");
-const box=document.getElementById("notifBox");
-
-bell.onclick=()=>{
-box.style.display = box.style.display==="block"?"none":"block";
-box.innerHTML = `
-<div>Server update v1.2.5</div>
-<div>Event started</div>
-<div>New rules added</div>`;
-};
 </script>
 
 </body>
