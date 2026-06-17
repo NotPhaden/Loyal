@@ -7,8 +7,8 @@
 
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
+
 <body>
 
 <div id="loadingScreen">Loading...</div>
@@ -41,9 +41,7 @@
 
 <!-- HERO -->
 <div class="hero glass">
-  <div class="avatar-box">
-    <img id="profileAvatar" src="https://ui-avatars.com/api/?name=User">
-  </div>
+  <img id="profileAvatar" src="https://ui-avatars.com/api/?name=User">
 
   <div>
     <small>Bine ai venit</small>
@@ -104,8 +102,11 @@
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence } 
+from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
+import { getDatabase, ref, get } 
+from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
 const firebaseConfig = {
 apiKey: "AIzaSyD...",
@@ -119,12 +120,14 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getDatabase();
 
+/* 🔥 FIX IMPORTANT: persistenta login */
+await setPersistence(auth, browserLocalPersistence);
+
+/* LOADING */
 const loading = document.getElementById("loadingScreen");
+setTimeout(() => loading.style.display = "none", 2000);
 
-/* SAFE LOADING */
-setTimeout(()=> loading.style.display="none", 2000);
-
-/* LOAD PROFILE (FIX PRINCIPAL) */
+/* PROFILE LOAD */
 async function loadProfile(uid){
   const snap = await get(ref(db, "users/" + uid));
 
@@ -140,24 +143,33 @@ async function loadProfile(uid){
   document.getElementById("profileName").innerText = data.discord || "User";
 }
 
-/* AUTH STATE */
+/* AUTH SAFE */
 onAuthStateChanged(auth, async (user) => {
 
   loading.style.display = "none";
 
-  if(user){
+  if(user && user.uid){
+
     document.getElementById("sidebar").classList.remove("hidden");
     document.getElementById("mainContent").classList.remove("hidden");
 
     await loadProfile(user.uid);
 
   } else {
-    window.location.href = "index.html";
+
+    console.log("No auth yet, staying on page...");
+
+    setTimeout(() => {
+      if(!auth.currentUser){
+        window.location.href = "index.html";
+      }
+    }, 2000);
+
   }
 
 });
 
-/* NOTIFICATIONS FIX */
+/* NOTIFICATIONS */
 const bell = document.getElementById("bellBtn");
 const box = document.getElementById("notifBox");
 
